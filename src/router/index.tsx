@@ -1,15 +1,29 @@
 import { createBrowserRouter } from 'react-router';
 
 import Layout from '@/layouts/common/Layout';
-import LoginPage from '@/pages/login';
+import RoutineLayout from '@/layouts/routine/RoutineLayout';
+import LoginPage from '@/pages/Login';
+import RoutinePage from '@/pages/Routine';
 
 const router = createBrowserRouter([
   {
     path: '/',
     Component: Layout,
     children: [
-      { index: true, Component: LoginPage },
-      { path: 'routine', Component }
+      {
+        index: true,
+        Component: LoginPage,
+      },
+      {
+        path: 'routine',
+        Component: RoutineLayout,
+        children: [
+          {
+            index: true,
+            Component: RoutinePage,
+          },
+        ],
+      },
     ],
   },
 ]);

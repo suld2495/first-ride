@@ -1,12 +1,16 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 const AuthForm = () => {
+  const navigate = useNavigate();
   const [nickname, setNickname] = useState('');
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     localStorage.setItem('nickname', nickname);
+
+    navigate('/routine');
   };
 
   return (

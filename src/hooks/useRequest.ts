@@ -1,0 +1,13 @@
+import { useQuery } from '@tanstack/react-query';
+
+import * as requestApi from '@/api/request.api';
+import { requestKey } from '@/types/query-keys/request';
+
+export const useFetchReceivedRequestsQuery = (nickname: string) => {
+  return useQuery({
+    queryKey: requestKey.receivedList(nickname),
+    queryFn: () => requestApi.fetchReceivedRequests(nickname),
+    initialData: [],
+    enabled: !!nickname,
+  });
+};

@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
-:root {
+@theme {
+  --max-width: 640px;
 
+  --primary-color: #1e293b;
+  --gray-main-color: #5c5c5c;
+
+  --header-height: 60px;
+
+  --footer-height: 62px;
 }

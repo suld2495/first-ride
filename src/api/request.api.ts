@@ -8,7 +8,7 @@ export enum CheckStatus {
 export interface RoutineRequest {
   id: number;
   routineId: number;
-  requesterNickname: string;
+  nickname: string;
   routineName: string;
   createdAt: string;
 }
@@ -29,7 +29,7 @@ export interface RoutineRequestCheckForm {
   checkComment: string;
 }
 
-export const fetchRoutineRequests = async (
+export const fetchReceivedRequests = async (
   nickname: string,
 ): Promise<RoutineRequest[]> => {
   const response = await fetch(

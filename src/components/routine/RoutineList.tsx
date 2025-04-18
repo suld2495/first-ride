@@ -1,7 +1,8 @@
-import { Routine } from "@/api/routine.api";
+import React from 'react';
+import { Link } from 'react-router';
 import { IconSquareCheckFilled } from '@tabler/icons-react';
-import Link from "next/link";
-import React from "react";
+
+import { Routine } from '@/api/routine.api';
 
 interface RoutineHeaderProps {
   className?: string;
@@ -9,7 +10,13 @@ interface RoutineHeaderProps {
 }
 
 const RoutineHeader = ({ className, children }: RoutineHeaderProps) => {
-  return <li className={`${className ? className : ''} flex-1 text-sm py-2 flex justify-center`}>{children}</li>
+  return (
+    <li
+      className={`${className || ''} flex-1 text-sm py-2 flex justify-center`}
+    >
+      {children}
+    </li>
+  );
 };
 
 interface RoutineListProps {
@@ -28,22 +35,41 @@ const RoutineList = ({ routines }: RoutineListProps) => {
         <RoutineHeader>인증</RoutineHeader>
       </ul>
       {!routines.length && (
-        <div className="py-4 text-center text-[15px] text-gray-700">루틴을 추가해보세요.</div>
+        <div className="py-4 text-center text-[15px] text-gray-700">
+          루틴을 추가해보세요.
+        </div>
       )}
       {routines.map(({ id, routineName, count = 0, routineCount }) => (
         <ul className="flex w-full text-center" key={id}>
-          <li className="text-sm truncate py-2 px-1 w-[100px] text-[var(--primary-color)]">{routineName}</li>
-          {Array(~~count).fill(0).map((_, index) => (
-            <RoutineHeader className="text-[var(--primary-color)]" key={index}><IconSquareCheckFilled stroke={2} /></RoutineHeader>
-          ))}
+          <li className="text-sm truncate py-2 px-1 w-[100px] text-[var(--primary-color)]">
+            {routineName}
+          </li>
+          {Array(~~count)
+            .fill(0)
+            .map((_, index) => (
+              <RoutineHeader
+                className="text-[var(--primary-color)]"
+                key={index}
+              >
+                <IconSquareCheckFilled stroke={2} />
+              </RoutineHeader>
+            ))}
 
-          {Array(Math.max(routineCount - ~~count, 0)).fill(0).map((_, index) => (
-            <RoutineHeader key={index} className="text-gray-400">미인증</RoutineHeader>
-          ))}
+          {Array(Math.max(routineCount - ~~count, 0))
+            .fill(0)
+            .map((_, index) => (
+              <RoutineHeader key={index} className="text-gray-400">
+                미인증
+              </RoutineHeader>
+            ))}
 
-          {Array(7 - Math.max(routineCount, ~~count)).fill(0).map((_, index) => (
-            <RoutineHeader key={index} className="text-gray-400">-</RoutineHeader>
-          ))}
+          {Array(7 - Math.max(routineCount, ~~count))
+            .fill(0)
+            .map((_, index) => (
+              <RoutineHeader key={index} className="text-gray-400">
+                -
+              </RoutineHeader>
+            ))}
 
           <RoutineHeader>
             <div className="text-[var(--gray-main-color)] font-bold">
@@ -52,18 +78,16 @@ const RoutineList = ({ routines }: RoutineListProps) => {
           </RoutineHeader>
           <RoutineHeader>
             <Link
-              href={`/routine/${id}/request`}
+              to={`/routine/${id}/request`}
               className="px-2 py-1 bg-gray-400 rounded-sm text-white text-[11px] cursor-pointer transition-color duration-300 hover:bg-gray-500"
             >
               인증
             </Link>
           </RoutineHeader>
         </ul>
-      ))
-
-      }
+      ))}
     </div>
-  )
+  );
 };
 
 export default RoutineList;

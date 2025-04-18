@@ -31,6 +31,11 @@ const RoutineHeader = ({ list, nickname }: RoutineHeaderProps) => {
     };
   }, [show, setShow]);
 
+  const handleClick = (e: React.MouseEvent) => {
+    setShow(true);
+    e.stopPropagation();
+  };
+
   return (
     <header className="relative flex justify-between w-full h-[var(--header-height)] py-3 px-4">
       <div className="text-[15px] text-gray-500">
@@ -38,7 +43,7 @@ const RoutineHeader = ({ list, nickname }: RoutineHeaderProps) => {
       </div>
       <div
         className="relative text-[var(--gray-main-color)] cursor-pointer"
-        onClick={() => setShow(true)}
+        onClick={handleClick}
       >
         <IconBellPlus stroke={2} />
         {list.length > 0 && (
@@ -51,7 +56,7 @@ const RoutineHeader = ({ list, nickname }: RoutineHeaderProps) => {
         <div className="absolute z-10 top-10 right-2">
           <div className="fixed z-1 w-full h-full top-0 left-0"></div>
           <ul className="alert relative z-2 w-[200px] p-2 border-[1px] border-gray-300 rounded-sm bg-white shadow-lg">
-            {list.map(({ id, routineName, requesterNickname, createdAt }) => (
+            {list.map(({ id, routineName, nickname, createdAt }) => (
               <li key={id}>
                 <Link
                   to={`/routine/request/${id}`}
@@ -59,7 +64,7 @@ const RoutineHeader = ({ list, nickname }: RoutineHeaderProps) => {
                 >
                   <p className="text-gray-600 font-semibold">{routineName}</p>
                   <div className="flex justify-between items-center mt-1 text-[12px] text-gray-500">
-                    <span>{requesterNickname}</span>
+                    <span>{nickname}</span>
                     <span>{getFormatDate(new Date(createdAt))}</span>
                   </div>
                 </Link>

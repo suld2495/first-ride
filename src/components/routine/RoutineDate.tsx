@@ -1,6 +1,13 @@
-import { afterWeek, beforeWeek, getDisplayFormatDate, getWeekMonday, getWeekSunday } from "@/utils/date-utils";
+import { Link } from 'react-router';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
-import Link from "next/link";
+
+import {
+  afterWeek,
+  beforeWeek,
+  getDisplayFormatDate,
+  getWeekMonday,
+  getWeekSunday,
+} from '@/utils/date-utils';
 
 interface RoutineDateProps {
   date?: string;
@@ -18,11 +25,15 @@ const RoutineDate = ({ date }: RoutineDateProps) => {
         <span>{getDisplayFormatDate(endDate)}</span>
       </div>
       <div className="flex">
-        <Link href={`/routine?date=${beforeWeek(startDate)}`}><IconChevronLeft stroke={2} /></Link>
-        <Link href={`/routine?date=${afterWeek(startDate)}`}><IconChevronRight stroke={2} /></Link>
+        <Link to={`/routine?date=${beforeWeek(startDate)}`}>
+          <IconChevronLeft stroke={2} />
+        </Link>
+        <Link to={`/routine?date=${afterWeek(startDate)}`}>
+          <IconChevronRight stroke={2} />
+        </Link>
       </div>
     </div>
-  )
+  );
 };
 
 export default RoutineDate;

@@ -5,7 +5,7 @@ import RoutineList from '@/components/routine/RoutineList';
 import { useRoutinesQuery } from '@/hooks/useRoutine';
 import { getWeekMonday } from '@/utils/date-utils';
 
-const Routine = () => {
+const RoutinePage = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const date = searchParams.get('date') || getWeekMonday(new Date());
@@ -39,4 +39,4 @@ const Routine = () => {
   );
 };
 
-export default Routine;
+export default RoutinePage;
