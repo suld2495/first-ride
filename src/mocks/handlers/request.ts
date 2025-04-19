@@ -2,7 +2,7 @@ import { http, HttpResponse } from 'msw';
 
 import { RoutineRequestCheckForm } from '@/api/request.api';
 
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+const BASE_URL = import.meta.env.VITE_MOCK_BASE_URL;
 
 export const requestHandlers = [
   http.get(`${BASE_URL}/api/routine/request/:id`, () => {

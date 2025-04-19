@@ -3,7 +3,7 @@ import { http, HttpResponse } from 'msw';
 import { RoutineForm } from '@/api/routine.api';
 import { getWeekMonday } from '@/utils/date-utils';
 
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+const BASE_URL = import.meta.env.VITE_MOCK_BASE_URL;
 
 export const routineHandlers = [
   http.get(`${BASE_URL}/api/routine/list`, ({ request }) => {

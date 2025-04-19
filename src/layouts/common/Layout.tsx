@@ -1,5 +1,7 @@
 import { Outlet } from 'react-router';
 
+import ModalProvider from '@/components/providers/ModalProvider';
+
 import Footer from './Footer';
 
 const Layout = () => {
@@ -7,6 +9,7 @@ const Layout = () => {
     <div className="h-dvh max-w-[var(--max-width)] mx-auto shadow-sm">
       <Outlet />
       <Footer />
+      <ModalProvider />
     </div>
   );
 };

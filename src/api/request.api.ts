@@ -1,4 +1,4 @@
-import { BASE_URL } from '.';
+import http from '.';
 
 export enum CheckStatus {
   PASS = 'PASS',
@@ -32,52 +32,23 @@ export interface RoutineRequestCheckForm {
 export const fetchReceivedRequests = async (
   nickname: string,
 ): Promise<RoutineRequest[]> => {
-  const response = await fetch(
-    `${BASE_URL}/routine/confirm/list?nickname=${nickname}`,
-  );
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch routines');
-  }
-
-  return response.json();
+  return http.get(`/routine/confirm/list?nickname=${nickname}`);
 };
 
-export const fetchRoutineRequestDetail = async (
+export const fetchRequestDetail = async (
   id: number,
 ): Promise<RoutineRequestDetail> => {
-  const response = await fetch(`${BASE_URL}/routine/confirm/detail?id=${id}`);
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch routines');
-  }
-
-  return response.json();
+  return http.get(`/routine/confirm/detail?id=${id}`);
 };
 
 export const createRequest = async (data: FormData): Promise<void> => {
-  const response = await fetch(`${BASE_URL}/routine/confirm`, {
-    method: 'POST',
-    body: data,
-  });
-
-  if (!response.ok) {
-    throw new Error('Failed to create request');
-  }
+  return http.post(`/routine/confirm`, data);
 };
 
 export const completeRequest = async (
   data: RoutineRequestCheckForm,
 ): Promise<void> => {
-  const response = await fetch(`${BASE_URL}/routine/check`, {
+  return http.post('/routine/check', data, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
   });
-
-  if (!response.ok) {
-    throw new Error('Failed to complete request');
-  }
 };

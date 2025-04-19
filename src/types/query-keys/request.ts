@@ -3,4 +3,5 @@ export const requestKey = {
   received: () => [...requestKey.request, 'received'],
   sent: () => [...requestKey.request, 'sent'],
   receivedList: (nickname: string) => [...requestKey.received(), nickname],
+  detail: (requestId: number) => [...requestKey.request, requestId],
 };

@@ -1,4 +1,4 @@
-import { BASE_URL } from '.';
+import http from '.';
 
 export interface Routine {
   id: number;
@@ -27,14 +27,7 @@ export const fetchRoutines = async (
   nickname: string,
   date: string,
 ): Promise<Routine[]> => {
-  const response = await fetch(
-    `${BASE_URL}/routine/list?date=${date}&nickname=${nickname}`,
-  );
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch routines');
-  }
-  return response.json();
+  return http.get(`/routine/list?date=${date}&nickname=${nickname}`);
 };
 
 export const fetchRoutineDetail = async (id: number): Promise<Routine> => {
@@ -42,26 +35,9 @@ export const fetchRoutineDetail = async (id: number): Promise<Routine> => {
 
   params.append('routineId', id.toString());
 
-  const response = await fetch(
-    `${BASE_URL}/routine/details?${params.toString()}`,
-  );
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch routines');
-  }
-  return response.json();
+  return http.get(`/routine/details?${params.toString()}`);
 };
 
 export const createRoutine = async (form: RoutineForm): Promise<void> => {
-  const response = await fetch(`${BASE_URL}/routine`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(form),
-  });
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch routines');
-  }
+  return http.post('/routine', form);
 };

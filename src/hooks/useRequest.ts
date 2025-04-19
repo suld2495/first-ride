@@ -11,3 +11,11 @@ export const useFetchReceivedRequestsQuery = (nickname: string) => {
     enabled: !!nickname,
   });
 };
+
+export const useFetchRequestDetailQuery = (requestId: number) => {
+  return useQuery({
+    queryKey: requestKey.detail(requestId),
+    queryFn: () => requestApi.fetchRequestDetail(requestId),
+    enabled: !!requestId,
+  });
+};
