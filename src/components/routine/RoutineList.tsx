@@ -1,8 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router';
-import { IconSquareCheckFilled } from '@tabler/icons-react';
+import {
+  IconCheck,
+  IconSquare,
+  IconSquareCheckFilled,
+} from '@tabler/icons-react';
 
 import { Routine } from '@/api/routine.api';
+import { ModalName, useModalStore } from '@/store/modal.store';
+import { useRoutineStore } from '@/store/routine.store';
 
 interface RoutineHeaderProps {
   className?: string;
@@ -24,6 +29,14 @@ interface RoutineListProps {
 }
 
 const RoutineList = ({ routines }: RoutineListProps) => {
+  const showModal = useModalStore((state) => state.show);
+  const setRoutineId = useRoutineStore((state) => state.setRoutineId);
+
+  const handleShowModal = (id: number) => {
+    showModal(ModalName.ROUTINE_REQUEST);
+    setRoutineId(id);
+  };
+
   return (
     <div>
       <ul className="flex w-full text-center text-gray-700 font-bold border-b border-gray-300">
@@ -59,7 +72,7 @@ const RoutineList = ({ routines }: RoutineListProps) => {
             .fill(0)
             .map((_, index) => (
               <RoutineHeader key={index} className="text-gray-400">
-                미인증
+                <IconSquare stroke={2} />
               </RoutineHeader>
             ))}
 
@@ -77,12 +90,12 @@ const RoutineList = ({ routines }: RoutineListProps) => {
             </div>
           </RoutineHeader>
           <RoutineHeader>
-            <Link
-              to={`/routine/${id}/request`}
+            <button
               className="px-2 py-1 bg-gray-400 rounded-sm text-white text-[11px] cursor-pointer transition-color duration-300 hover:bg-gray-500"
+              onClick={() => handleShowModal(id)}
             >
-              인증
-            </Link>
+              <IconCheck height={15} stroke={2} />
+            </button>
           </RoutineHeader>
         </ul>
       ))}

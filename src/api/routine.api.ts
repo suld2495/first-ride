@@ -4,7 +4,7 @@ export interface Routine {
   id: number;
   nickname: string;
   routineName: string;
-  endDate: string;
+  endDate?: string;
   routineDetail: string;
   penalty: number;
   count: number;

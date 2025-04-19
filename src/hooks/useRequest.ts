@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 import * as requestApi from '@/api/request.api';
 import { requestKey } from '@/types/query-keys/request';
@@ -17,5 +17,11 @@ export const useFetchRequestDetailQuery = (requestId: number) => {
     queryKey: requestKey.detail(requestId),
     queryFn: () => requestApi.fetchRequestDetail(requestId),
     enabled: !!requestId,
+  });
+};
+
+export const useCreateRequestMutation = () => {
+  return useMutation({
+    mutationFn: (data: FormData) => requestApi.createRequest(data),
   });
 };

@@ -26,3 +26,11 @@ export const useCreateRoutineMutation = (nickname: string) => {
     },
   });
 };
+
+export const useRoutineDetailQuery = (routineId: number) => {
+  return useQuery({
+    queryKey: routineKey.detail(routineId),
+    queryFn: () => routineApi.fetchRoutineDetail(routineId),
+    enabled: !!routineId,
+  });
+};

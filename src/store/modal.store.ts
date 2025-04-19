@@ -3,6 +3,7 @@ import { devtools } from 'zustand/middleware';
 
 export enum ModalName {
   ROUTINE_ADD = 'routine_add',
+  ROUTINE_REQUEST = 'routine_request',
   REQUEST_DETAIL = 'request_detail',
 }
 

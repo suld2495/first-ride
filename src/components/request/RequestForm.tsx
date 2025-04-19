@@ -1,5 +1,7 @@
-import { useActionState, useRef, useState } from 'react';
-import { Link } from 'react-router';
+import { useRef, useState } from 'react';
+
+import { useCreateRequestMutation } from '@/hooks/useRequest';
+import { useModalStore } from '@/store/modal.store';
 
 interface FormLabelProps {
   children: React.ReactNode;
@@ -26,15 +28,14 @@ const RequestForm = ({
   routineDetail,
   nickname,
 }: RequestFormProps) => {
+  const closeModal = useModalStore((state) => state.close);
   const imageRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string>('');
-  const [state, action] = useActionState(createRequestAction, {
-    payload: new FormData(),
-    error: false,
-    message: '',
-  });
+  const [image, setImage] = useState<File | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
-  const [enable, setEnable] = useState(false);
+  const enable = image !== null;
+
+  const saveRequest = useCreateRequestMutation();
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -46,12 +47,32 @@ const RequestForm = ({
         setPreview(reader.result as string);
       };
       reader.readAsDataURL(file);
+      setImage(file);
     }
-    setEnable(true);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!image) return;
+
+    const formData = new FormData();
+
+    formData.append('image', image);
+    formData.append('routineId', id.toString());
+    formData.append('nickname', nickname);
+
+    try {
+      await saveRequest.mutateAsync(formData);
+      closeModal();
+      alert('인증 요청이 완료되었습니다.');
+    } catch {
+      alert('인증 요청에 실패했습니다.');
+    }
   };
 
   return (
-    <form ref={formRef} action={action}>
+    <form ref={formRef} onSubmit={handleSubmit}>
       <input className="hidden" name="routineId" defaultValue={id} />
       <input className="hidden" name="nickname" defaultValue={nickname} />
       <div className="flex flex-col gap-2 mt-5">
@@ -84,25 +105,20 @@ const RequestForm = ({
         {preview && (
           <div className="relative mt-2 h-[300px]">
             <img
-              className="w-full h-auto rounded-lg"
+              className="w-full h-full rounded-lg"
               src={preview}
               alt="Preview"
             />
           </div>
         )}
       </div>
-      {state.error && (
-        <div className="text-red-500 text-sm mt-2">
-          {state.message || '문제가 발생하였습니다.'}
-        </div>
-      )}
       <div className="flex justify-end mt-5">
-        <Link
-          className="mr-2 text-sm text-gray-500 flex items-center"
-          to="/routine"
+        <button
+          className="mr-2 text-sm text-gray-500 flex items-center cursor-pointer"
+          onClick={closeModal}
         >
           취소
-        </Link>
+        </button>
         <button
           type="submit"
           className="text-sm text-white bg-gray-500 rounded-md px-4 py-2 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"

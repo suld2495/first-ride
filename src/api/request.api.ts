@@ -42,7 +42,11 @@ export const fetchRequestDetail = async (
 };
 
 export const createRequest = async (data: FormData): Promise<void> => {
-  return http.post(`/routine/confirm`, data);
+  return http.post(`/routine/confirm`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 };
 
 export const completeRequest = async (
