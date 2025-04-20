@@ -54,7 +54,7 @@ export const routineHandlers = [
 
   http.get(`${BASE_URL}/api/routine/details`, ({ request }) => {
     const searchParams = new URLSearchParams(request.url.split('?')[1]);
-    const id = searchParams.get('id');
+    const id = searchParams.get('routineId');
 
     if (!id) {
       return HttpResponse.json(
@@ -66,6 +66,7 @@ export const routineHandlers = [
       id: 1,
       nickname: 'yunji',
       routineName: '퇴근 후 공부 루틴',
+      startDate: '2025-04-15',
       endDate: '2025-04-30',
       routineDetail: '일주일 3회 이상 퇴근 후 공부하고 인증사진 보내기',
       penalty: 5000,

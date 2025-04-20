@@ -4,6 +4,7 @@ export interface Routine {
   id: number;
   nickname: string;
   routineName: string;
+  startDate: string;
   endDate?: string;
   routineDetail: string;
   penalty: number;
@@ -40,4 +41,8 @@ export const fetchRoutineDetail = async (id: number): Promise<Routine> => {
 
 export const createRoutine = async (form: RoutineForm): Promise<void> => {
   return http.post('/routine', form);
+};
+
+export const deleteRoutine = async (id: number): Promise<void> => {
+  return http.delete(`/routine/${id}`);
 };

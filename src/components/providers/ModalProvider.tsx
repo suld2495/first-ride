@@ -5,6 +5,7 @@ import { ModalName, useModalStore } from '@/store/modal.store';
 import Modal from '../common/Modal';
 import RequestDetailModal from '../modal/RequestDetailModal';
 import RoutineAddModal from '../modal/RoutineAddModal';
+import RoutineDetailModal from '../modal/RoutineDetailModal';
 import RoutineRequestModal from '../modal/RoutineRequestModal';
 
 interface ModalContainerProps {
@@ -19,6 +20,10 @@ const ModalContainer = ({ name }: ModalContainerProps) => {
     case ModalName.ROUTINE_ADD:
       title = '루틴 추가';
       children = <RoutineAddModal />;
+      break;
+    case ModalName.ROUTINE_DETAIL:
+      title = '루틴 확인';
+      children = <RoutineDetailModal />;
       break;
     case ModalName.REQUEST_DETAIL:
       title = '루틴 확인 요청';

@@ -34,3 +34,17 @@ export const useRoutineDetailQuery = (routineId: number) => {
     enabled: !!routineId,
   });
 };
+
+export const useDeleteRoutineMutation = (nickname: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (routineId: number) => routineApi.deleteRoutine(routineId),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [...routineKey.list(nickname)],
+      });
+    },
+  });
+};
