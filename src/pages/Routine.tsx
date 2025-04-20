@@ -41,7 +41,7 @@ const RoutinePage = () => {
         </button>
       </h1>
       <RoutineDate date={date} />
-      <RoutineList routines={routines} />
+      <RoutineList routines={routines} date={date} />
     </div>
   );
 };

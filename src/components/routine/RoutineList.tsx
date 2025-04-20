@@ -8,6 +8,7 @@ import {
 import { Routine } from '@/api/routine.api';
 import { ModalName, useModalStore } from '@/store/modal.store';
 import { useRoutineStore } from '@/store/routine.store';
+import { getWeekMonday } from '@/utils/date-utils';
 
 interface RoutineHeaderProps {
   className?: string;
@@ -26,14 +27,20 @@ const RoutineHeader = ({ className, children }: RoutineHeaderProps) => {
 
 interface RoutineListProps {
   routines: Routine[];
+  date: string;
 }
 
-const RoutineList = ({ routines }: RoutineListProps) => {
+const RoutineList = ({ routines, date }: RoutineListProps) => {
   const showModal = useModalStore((state) => state.show);
   const setRoutineId = useRoutineStore((state) => state.setRoutineId);
 
-  const handleShowModal = (id: number) => {
+  const handleShowRequestModal = (id: number) => {
     showModal(ModalName.ROUTINE_REQUEST);
+    setRoutineId(id);
+  };
+
+  const handleShowDetailModal = (id: number) => {
+    showModal(ModalName.ROUTINE_DETAIL);
     setRoutineId(id);
   };
 
@@ -55,7 +62,12 @@ const RoutineList = ({ routines }: RoutineListProps) => {
       {routines.map(({ id, routineName, count = 0, routineCount }) => (
         <ul className="flex w-full text-center" key={id}>
           <li className="text-sm truncate py-2 px-1 w-[100px] text-[var(--primary-color)]">
-            {routineName}
+            <span
+              className="cursor-pointer hover:underline hover:text-gray-500"
+              onClick={() => handleShowDetailModal(id)}
+            >
+              {routineName}
+            </span>
           </li>
           {Array(~~count)
             .fill(0)
@@ -90,12 +102,16 @@ const RoutineList = ({ routines }: RoutineListProps) => {
             </div>
           </RoutineHeader>
           <RoutineHeader>
-            <button
-              className="px-2 py-1 bg-gray-400 rounded-sm text-white text-[11px] cursor-pointer transition-color duration-300 hover:bg-gray-500"
-              onClick={() => handleShowModal(id)}
-            >
-              <IconCheck height={15} stroke={2} />
-            </button>
+            {date === getWeekMonday(new Date()) ? (
+              <button
+                className="px-2 py-1 bg-gray-400 rounded-sm text-white text-[11px] cursor-pointer transition-color duration-300 hover:bg-gray-500"
+                onClick={() => handleShowRequestModal(id)}
+              >
+                <IconCheck height={15} stroke={2} />
+              </button>
+            ) : (
+              <div></div>
+            )}
           </RoutineHeader>
         </ul>
       ))}
