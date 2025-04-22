@@ -14,13 +14,14 @@ const RequestView = ({
   const user = useAuthStore((state) => state.user);
   const [comment, setComment] = useState('');
   const replyRequest = useReplyRequestMutation(user);
+  const closeModal = useModalStore((state) => state.close);
 
   const handleSubmit = async (status: CheckStatus) => {
     try {
       await replyRequest.mutateAsync({
         confirmId: id,
         checkStatus: status,
-        checkComment: commnet,
+        checkComment: comment,
       });
 
       closeModal();
@@ -66,7 +67,7 @@ const RequestView = ({
               id="comment"
               name="comment"
               rows={4}
-              value={commnet}
+              value={comment}
               onChange={(e) => setComment(e.target.value)}
               className="w-full outline-none border-[1px] border-gray-300 rounded-md p-2 focus:border-gray-500 focus:ring-0 transition-colors duration-300"
               placeholder="코멘트를 입력하세요."
