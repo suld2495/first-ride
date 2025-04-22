@@ -12,8 +12,7 @@ const RequestView = ({
   imagePath,
 }: RoutineRequestDetail) => {
   const user = useAuthStore((state) => state.user);
-  const [commnet, setComment] = useState('');
-  const closeModal = useModalStore((state) => state.close);
+  const [comment, setComment] = useState('');
   const replyRequest = useReplyRequestMutation(user);
 
   const handleSubmit = async (status: CheckStatus) => {
