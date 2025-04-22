@@ -1,10 +1,11 @@
 import { useRoutineDetailQuery } from '@/hooks/useRoutine';
+import { useAuthStore } from '@/store/auth.store';
 import { useRoutineStore } from '@/store/routine.store';
 
 import RequestForm from '../request/RequestForm';
 
 const RoutineRequestModal = () => {
-  const nickname = localStorage.getItem('nickname') || '';
+  const user = useAuthStore((state) => state.user);
   const routineId = useRoutineStore((state) => state.routineId);
   const { data: detail, isLoading } = useRoutineDetailQuery(routineId);
 
@@ -12,7 +13,7 @@ const RoutineRequestModal = () => {
     return null;
   }
 
-  return <RequestForm {...detail} nickname={nickname} />;
+  return <RequestForm {...detail} nickname={user} />;
 };
 
 export default RoutineRequestModal;

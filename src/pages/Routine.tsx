@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router';
 import RoutineDate from '@/components/routine/RoutineDate';
 import RoutineList from '@/components/routine/RoutineList';
 import { useRoutinesQuery } from '@/hooks/useRoutine';
+import { useAuthStore } from '@/store/auth.store';
 import { ModalName, useModalStore } from '@/store/modal.store';
 import { getWeekMonday } from '@/utils/date-utils';
 
@@ -11,11 +12,11 @@ const RoutinePage = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const date = searchParams.get('date') || getWeekMonday(new Date());
-  const nickname = localStorage.getItem('nickname') as string;
+  const user = useAuthStore((state) => state.user);
 
-  const { data: routines, isLoading } = useRoutinesQuery(nickname, date);
+  const { data: routines, isLoading } = useRoutinesQuery(user, date);
 
-  if (!nickname) {
+  if (!user) {
     navigate('/');
     return null;
   }

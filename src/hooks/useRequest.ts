@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import * as requestApi from '@/api/request.api';
 import { requestKey } from '@/types/query-keys/request';
@@ -23,5 +23,20 @@ export const useFetchRequestDetailQuery = (requestId: number) => {
 export const useCreateRequestMutation = () => {
   return useMutation({
     mutationFn: (data: FormData) => requestApi.createRequest(data),
+  });
+};
+
+export const useReplyRequestMutation = (user: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: requestApi.RoutineRequestCheckForm) =>
+      requestApi.replyRequest(data),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: requestKey.receivedList(user),
+      });
+    },
   });
 };

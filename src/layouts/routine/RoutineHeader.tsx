@@ -58,7 +58,7 @@ const RoutineHeader = ({ list, nickname }: RoutineHeaderProps) => {
           </span>
         )}
       </div>
-      {show && list.length && (
+      {show && !!list.length && (
         <div className="absolute z-10 top-10 right-2">
           <div className="fixed z-1 w-full h-full top-0 left-0"></div>
           <ul className="alert relative z-2 w-[200px] p-2 border-[1px] border-gray-300 rounded-sm bg-white shadow-lg">
