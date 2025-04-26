@@ -1,5 +1,7 @@
 import { useModalStore } from '@/store/modal.store';
 
+import Paragraph from './paragraph/Paragraph';
+
 interface ModalProps {
   title: string;
   children: React.ReactNode;
@@ -15,9 +17,12 @@ const Modal = ({ title, children }: ModalProps) => {
         onClick={close}
       />
       <div className="relative z-1 p-6 bg-white rounded-xl max-w-[var(--max-width)] w-full">
-        <h1 className="pb-5 font-bold text-xl border-b-[1px] border-b-gray-300">
+        <Paragraph
+          className="pb-5 border-b-[1px] border-b-gray-300"
+          variant="h3"
+        >
           {title}
-        </h1>
+        </Paragraph>
         {children}
       </div>
     </div>

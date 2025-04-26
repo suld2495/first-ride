@@ -10,6 +10,8 @@ import { ModalName, useModalStore } from '@/store/modal.store';
 import { useRoutineStore } from '@/store/routine.store';
 import { getWeekMonday } from '@/utils/date-utils';
 
+import IconButton from '../common/button/IconButton';
+
 interface RoutineHeaderProps {
   className?: string;
   children: React.ReactNode;
@@ -103,12 +105,14 @@ const RoutineList = ({ routines, date }: RoutineListProps) => {
           </RoutineHeader>
           <RoutineHeader>
             {date === getWeekMonday(new Date()) ? (
-              <button
-                className="px-2 py-1 bg-gray-400 rounded-sm text-white text-[11px] cursor-pointer transition-color duration-300 hover:bg-gray-500"
+              <IconButton
+                className="px-2"
+                icon={<IconCheck height={15} stroke={2} />}
+                size="small"
                 onClick={() => handleShowRequestModal(id)}
               >
-                <IconCheck height={15} stroke={2} />
-              </button>
+                {''}
+              </IconButton>
             ) : (
               <div></div>
             )}
