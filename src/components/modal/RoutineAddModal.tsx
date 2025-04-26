@@ -1,10 +1,12 @@
+import { useAuthStore } from '@/store/auth.store';
+
 import RoutineForm from '../routine/RoutineForm';
 
 const RoutineAddModal = () => {
-  const nickname = localStorage.getItem('nickname') || '';
-  const mateNickname = nickname === 'yunji' ? 'moon' : 'yunji';
+  const user = useAuthStore((state) => state.user);
+  const mateNickname = user === 'yunji' ? 'moon' : 'yunji';
 
-  return <RoutineForm nickname={nickname} mateNickname={mateNickname} />;
+  return <RoutineForm nickname={user} mateNickname={mateNickname} />;
 };
 
 export default RoutineAddModal;

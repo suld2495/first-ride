@@ -49,7 +49,7 @@ export const createRequest = async (data: FormData): Promise<void> => {
   });
 };
 
-export const completeRequest = async (
+export const replyRequest = async (
   data: RoutineRequestCheckForm,
 ): Promise<void> => {
   return http.post('/routine/check', data, {
