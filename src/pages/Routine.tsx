@@ -33,7 +33,7 @@ const RoutinePage = () => {
 
   return (
     <div className="px-5">
-      <h1 className="mb-5 relative">
+      <div className="mb-5 relative">
         <Paragraph variant="h4">루틴 리스트</Paragraph>
         <Button
           type="button"
@@ -42,7 +42,7 @@ const RoutinePage = () => {
         >
           루틴 추가
         </Button>
-      </h1>
+      </div>
       <RoutineDate date={date} />
       <RoutineList routines={routines} date={date} />
     </div>
