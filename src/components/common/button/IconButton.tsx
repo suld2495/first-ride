@@ -10,15 +10,17 @@ const IconButton = ({
   icon,
   iconPosition = 'left',
   children,
+  className = '',
   gap = 2,
   ...props
 }: IconButtonProps) => {
   return (
-    <div
-      className="flex items-center justify-center"
-      style={{ gap: `${gap}px` }}
-    >
-      <Button {...props}>
+    <div className="">
+      <Button
+        className={`flex items-center justify-center ${className}`}
+        style={{ gap: `${gap}px`, ...props.style }}
+        {...props}
+      >
         {iconPosition === 'left' && icon}
         {children}
         {iconPosition === 'right' && icon}

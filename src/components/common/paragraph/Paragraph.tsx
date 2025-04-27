@@ -25,7 +25,7 @@ const Paragraph = ({
   return React.createElement(
     Tag,
     {
-      className: `text-primay-text-color ${variantStyle[variant]} ${className}`,
+      className: `text-primary-text-color ${variantStyle[variant]} ${className}`,
       ...props,
     },
     children,

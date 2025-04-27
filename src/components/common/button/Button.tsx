@@ -5,7 +5,7 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const variantStyle: Record<ButtonVariant, string> = {
@@ -23,7 +23,7 @@ const sizeStyle: Record<ButtonSize, string> = {
 const Button = ({
   variant = 'primary',
   size = 'medium',
-  className,
+  className = '',
   children,
   ...props
 }: ButtonProps) => {

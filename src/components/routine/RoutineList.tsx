@@ -110,9 +110,7 @@ const RoutineList = ({ routines, date }: RoutineListProps) => {
                 icon={<IconCheck height={15} stroke={2} />}
                 size="small"
                 onClick={() => handleShowRequestModal(id)}
-              >
-                {''}
-              </IconButton>
+              />
             ) : (
               <div></div>
             )}
