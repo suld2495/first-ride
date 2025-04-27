@@ -5,6 +5,9 @@ import { useReplyRequestMutation } from '@/hooks/useRequest';
 import { useAuthStore } from '@/store/auth.store';
 import { useModalStore } from '@/store/modal.store';
 
+import Button from '../common/button/Button';
+import Paragraph from '../common/paragraph/Paragraph';
+
 const RequestView = ({
   id,
   routineName,
@@ -39,15 +42,15 @@ const RequestView = ({
   return (
     <div>
       <div className="py-4">
-        <div className="font-semibold text-[18px] mb-2">
-          <p>{routineName}</p>
-        </div>
-        <div className="text-[15px] text-gray-600">
-          <p>{routineDetail}</p>
-        </div>
+        <Paragraph className="mb-2" variant="h4">
+          {routineName}
+        </Paragraph>
+        <Paragraph>{routineDetail}</Paragraph>
       </div>
       <div className="py-5 border-t-[1px] border-gray-300">
-        <div className="font-semibold">인증 내용</div>
+        <Paragraph className="mb-2" variant="h4">
+          인증 내용
+        </Paragraph>
         <div className="relative w-full">
           <img src={imagePath} alt="인증" />
         </div>
@@ -75,26 +78,21 @@ const RequestView = ({
           </div>
 
           <div className="flex justify-end mt-2">
-            <button
-              className="mr-2 text-sm text-gray-500 flex items-center cursor-pointer"
-              onClick={closeModal}
-            >
+            <Button className="mr-2" variant="plain" onClick={closeModal}>
               취소
-            </button>
-            <button
-              type="button"
-              className="mr-2 text-sm text-white bg-gray-500 rounded-md px-4 py-2 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+            </Button>
+            <Button
+              className="mr-2 px-4 disabled:opacity-30 disabled:cursor-not-allowed"
               onClick={() => handleSubmit(CheckStatus.PASS)}
             >
               승인
-            </button>
-            <button
-              type="button"
-              className="text-sm text-white bg-red-400 rounded-md px-4 py-2 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+            </Button>
+            <Button
+              className="mr-2 px-4 bg-red-400 hover:bg-red-500 disabled:opacity-30 disabled:cursor-not-allowed"
               onClick={() => handleSubmit(CheckStatus.DENIED)}
             >
               거절
-            </button>
+            </Button>
           </div>
         </form>
       </div>

@@ -3,6 +3,9 @@ import { useDeleteRoutineMutation } from '@/hooks/useRoutine';
 import { useModalStore } from '@/store/modal.store';
 import { getDisplayFormatDate } from '@/utils/date-utils';
 
+import Button from '../common/button/Button';
+import Paragraph from '../common/paragraph/Paragraph';
+
 const RoutineView = ({
   id,
   nickname,
@@ -31,61 +34,54 @@ const RoutineView = ({
   return (
     <div>
       <div className="py-4">
-        <div className="font-semibold text-[18px] mb-2">
-          <p>{routineName}</p>
-        </div>
-        <div className="text-[15px] text-gray-600">
-          <p>{routineDetail}</p>
+        <Paragraph className="mb-2" variant="h4">
+          {routineName}
+        </Paragraph>
+        <Paragraph>{routineDetail}</Paragraph>
+      </div>
+      <div className="py-4">
+        <Paragraph className="mb-2" variant="h4">
+          루틴 횟수
+        </Paragraph>
+        <div className="relative w-full">
+          <Paragraph>{routineCount}</Paragraph>
         </div>
       </div>
       <div className="py-4">
-        <div className="font-semibold">루틴 횟수</div>
+        <Paragraph className="mb-2" variant="h4">
+          벌금
+        </Paragraph>
         <div className="relative w-full">
-          <p>{routineCount}</p>
+          <Paragraph>{penalty}</Paragraph>
         </div>
       </div>
       <div className="py-4">
-        <div className="font-semibold">벌금</div>
+        <Paragraph className="mb-2" variant="h4">
+          루틴 날짜
+        </Paragraph>
         <div className="relative w-full">
-          <p>{penalty}</p>
-        </div>
-      </div>
-      <div className="py-4">
-        <div className="font-semibold">루틴 날짜</div>
-        <div className="relative w-full">
-          <p>
+          <Paragraph>
             {getDisplayFormatDate(new Date(startDate))} ~
             {endDate && <span> {getDisplayFormatDate(new Date(endDate))}</span>}
-          </p>
+          </Paragraph>
         </div>
       </div>
       <div className="flex justify-end mt-2">
-        <button
-          className="mr-2 text-sm text-white bg-gray-500 rounded-md px-4 py-2 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+        <Button
+          className="mr-2 px-4 disabled:opacity-30 disabled:cursor-not-allowed"
           onClick={closeModal}
         >
           확인
-        </button>
-        <button
-          className="mr-2 text-sm text-white bg-red-400 rounded-md px-4 py-2 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+        </Button>
+        <Button
+          className="mr-2 px-4 bg-red-400 hover:bg-red-500 disabled:opacity-30 disabled:cursor-not-allowed"
           onClick={handleDelete}
         >
           삭제
-        </button>
+        </Button>
       </div>
     </div>
   );
 };
-
-/* 
-nickname: 'yunji',
-      routineName: '퇴근 후 공부 루틴',
-      endDate: '2025-04-30',
-      routineDetail: '일주일 3회 이상 퇴근 후 공부하고 인증사진 보내기',
-      penalty: 5000,
-      routineCount: 3,
-      mateNickname: 'moon',
-
-*/
 
 export default RoutineView;

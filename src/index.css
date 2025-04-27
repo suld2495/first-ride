@@ -3,10 +3,18 @@
 @theme {
   --max-width: 640px;
 
-  --primary-color: #1e293b;
-  --gray-main-color: #5c5c5c;
+  --color-primary-color: #1e293b;
+  --color-primary-color-hover: #141b27;
+  --color-gray-main: #5c5c5c;
+  --color-gray-main-hover: #3c3b3b;
+
+  --color-primary-text-color: #111;
 
   --header-height: 60px;
 
   --footer-height: 62px;
+
+  --text-small: 12px;
+  --text-middle: 14px;
+  --text-large: 16px;
 }

@@ -1,5 +1,7 @@
 import { useNavigate, useSearchParams } from 'react-router';
 
+import Button from '@/components/common/button/Button';
+import Paragraph from '@/components/common/paragraph/Paragraph';
 import RoutineDate from '@/components/routine/RoutineDate';
 import RoutineList from '@/components/routine/RoutineList';
 import { useRoutinesQuery } from '@/hooks/useRoutine';
@@ -32,14 +34,14 @@ const RoutinePage = () => {
   return (
     <div className="px-5">
       <h1 className="mb-5 relative">
-        <span className="text-lg font-bold">루틴 리스트</span>
-        <button
+        <Paragraph variant="h4">루틴 리스트</Paragraph>
+        <Button
           type="button"
-          className="absolute text-sm right-0 top-[50%] translate-y-[-50%] p-2 rounded-md text-white bg-gray-700 cursor-pointer"
+          className="absolute right-0 top-[50%] translate-y-[-50%]"
           onClick={showRoutineAddModal}
         >
           루틴 추가
-        </button>
+        </Button>
       </h1>
       <RoutineDate date={date} />
       <RoutineList routines={routines} date={date} />
