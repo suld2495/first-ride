@@ -13,6 +13,7 @@ interface FormItemRender {
     value: FormValue;
     onChange: React.ChangeEventHandler;
     form: object;
+    setValue: (name: string, value: FormValue) => void;
   }): React.ReactNode;
 }
 
@@ -41,6 +42,10 @@ const FormItem = ({
     setValue(name as keyof FormContextProps<object>, e.target.value);
   };
 
+  const handleSetValue = (key: string, value: FormValue) => {
+    setValue(key as keyof FormContextProps<object>, value);
+  };
+
   useEffect(() => {
     if (!rule) return;
 
@@ -60,6 +65,7 @@ const FormItem = ({
         value: form[name],
         onChange: handleChange,
         form,
+        setValue: handleSetValue,
       })}
     </div>
   );

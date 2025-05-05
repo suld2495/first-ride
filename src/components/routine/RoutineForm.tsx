@@ -6,12 +6,14 @@ import Form from '../common/form/Form';
 import { FormItem } from '../common/form/FormItem';
 import Input from '../common/Input';
 
+import RoutineSubmitButton from './RoutineSubmitButton';
+
 interface RoutineFormProps {
   nickname: string;
   mateNickname: string;
 }
 
-const routineForm = {
+const routineFormInit = {
   nickname: '',
   routineName: '',
   routineDetail: '',
@@ -25,54 +27,13 @@ const routineForm = {
 const RoutineForm = ({ nickname, mateNickname }: RoutineFormProps) => {
   const closeModal = useModalStore((state) => state.close);
   const form: RoutineFormType = {
-    ...routineForm,
+    ...routineFormInit,
     nickname,
     mateNickname,
   };
   const saveMutation = useCreateRoutineMutation(nickname);
 
-  const enable = Object.entries(form)
-    .filter(([key]) => key !== 'name' && key !== 'endDate' && key !== 'penalty')
-    .every(([, value]) => value);
-
-  // const handleChange = (e: React.ChangeEvent) => {
-  //   const target = e.target as HTMLInputElement;
-
-  //   if (target.name === 'endDate') {
-  //     const startDate = new Date(form.startDate);
-  //     const endDate = new Date(target.value);
-
-  //     if (form.startDate && endDate < startDate) {
-  //       setForm((prev) => ({
-  //         ...prev,
-  //         startDate: target.value,
-  //       }));
-  //     }
-  //   }
-
-  //   if (target.name === 'startDate') {
-  //     const startDate = new Date(target.value);
-  //     const endDate = new Date(form.endDate);
-
-  //     if (form.endDate && endDate < startDate) {
-  //       setForm((prev) => ({
-  //         ...prev,
-  //         endDate: target.value,
-  //       }));
-  //     }
-  //   }
-
-  //   setForm((prev) => ({
-  //     ...prev,
-  //     [target.name]: ['penalty', 'routineCount'].includes(target.name)
-  //       ? Number(target.value)
-  //       : target.value,
-  //   }));
-  // };
-
   const handleSubmit = async (data: RoutineFormType) => {
-    if (!enable) return;
-
     try {
       await saveMutation.mutateAsync(data);
       alert('루틴이 생성되었습니다.');
@@ -150,27 +111,52 @@ const RoutineForm = ({ nickname, mateNickname }: RoutineFormProps) => {
         className="flex flex-col gap-2 mt-5"
         label="루틴 시작 날짜"
         rule={{ required: true }}
-        render={({ value, name, onChange }) => (
+        render={({ value, name, onChange, form, setValue }) => (
           <Input
             type="date"
             name={name}
             value={value}
             placeholder="루틴 시작 날짜를 입력하세요."
-            onChange={onChange}
+            onChange={(e) => {
+              const target = e.target as HTMLInputElement;
+              const routineForm = form as RoutineFormType;
+
+              if (target.name === 'startDate') {
+                const startDate = new Date(target.value);
+                const endDate = new Date(routineForm.endDate);
+
+                if (routineForm.endDate && endDate < startDate) {
+                  setValue('endDate', target.value);
+                }
+              }
+
+              onChange(e);
+            }}
           />
         )}
       />
       <FormItem
-        name="startDate"
+        name="endDate"
         className="flex flex-col gap-2 mt-5"
         label="루틴 종료 날짜"
-        render={({ value, name, onChange }) => (
+        render={({ value, name, onChange, form, setValue }) => (
           <Input
             type="date"
             name={name}
             value={value}
             placeholder="루틴 종료 날짜를 입력하세요."
-            onChange={onChange}
+            onChange={(e) => {
+              const target = e.target as HTMLInputElement;
+              const routineForm = form as RoutineFormType;
+              const startDate = new Date(routineForm.startDate);
+              const endDate = new Date(target.value);
+
+              if (routineForm.startDate && endDate < startDate) {
+                setValue('startDate', target.value);
+              }
+
+              onChange(e);
+            }}
           />
         )}
       />
@@ -182,13 +168,7 @@ const RoutineForm = ({ nickname, mateNickname }: RoutineFormProps) => {
         >
           취소
         </button>
-        <button
-          type="submit"
-          className="text-sm text-white bg-gray-500 rounded-md px-4 py-2 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
-          disabled={!enable}
-        >
-          추가
-        </button>
+        <RoutineSubmitButton />
       </div>
     </Form>
   );
