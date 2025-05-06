@@ -5,7 +5,7 @@ import { useModalStore } from '@/store/modal.store';
 import Button from '../common/button/Button';
 import Form from '../common/form/Form';
 import { FormItem } from '../common/form/FormItem';
-import Input from '../common/Input';
+import Input from '../common/input/Input';
 
 import RoutineSubmitButton from './RoutineSubmitButton';
 
