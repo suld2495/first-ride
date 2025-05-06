@@ -3,6 +3,8 @@ import { useRef, useState } from 'react';
 import { useCreateRequestMutation } from '@/hooks/useRequest';
 import { useModalStore } from '@/store/modal.store';
 
+import Button from '../common/button/Button';
+
 interface FormLabelProps {
   children: React.ReactNode;
 }
@@ -32,7 +34,6 @@ const RequestForm = ({
   const imageRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string>('');
   const [image, setImage] = useState<File | null>(null);
-  const formRef = useRef<HTMLFormElement>(null);
   const enable = image !== null;
 
   const saveRequest = useCreateRequestMutation();
@@ -72,7 +73,7 @@ const RequestForm = ({
   };
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <input className="hidden" name="routineId" defaultValue={id} />
       <input className="hidden" name="nickname" defaultValue={nickname} />
       <div className="flex flex-col gap-2 mt-5">
@@ -113,19 +114,16 @@ const RequestForm = ({
         )}
       </div>
       <div className="flex justify-end mt-5">
-        <button
-          className="mr-2 text-sm text-gray-500 flex items-center cursor-pointer"
-          onClick={closeModal}
-        >
+        <Button className="mr-2" variant="plain" onClick={closeModal}>
           취소
-        </button>
-        <button
+        </Button>
+        <Button
           type="submit"
-          className="text-sm text-white bg-gray-500 rounded-md px-4 py-2 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+          className="disabled:opacity-30 disabled:cursor-not-allowed"
           disabled={!enable}
         >
           요청
-        </button>
+        </Button>
       </div>
     </form>
   );

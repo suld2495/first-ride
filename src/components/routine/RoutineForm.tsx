@@ -1,34 +1,25 @@
-import { useRef, useState } from 'react';
-
 import { RoutineForm as RoutineFormType } from '@/api/routine.api';
 import { useCreateRoutineMutation } from '@/hooks/useRoutine';
 import { useModalStore } from '@/store/modal.store';
 
+import Button from '../common/button/Button';
+import Form from '../common/form/Form';
+import { FormItem } from '../common/form/FormItem';
 import Input from '../common/Input';
 
-interface RoutineFormLabelProps {
-  children: React.ReactNode;
-}
-
-const RoutineFormLabel = ({ children }: RoutineFormLabelProps) => {
-  return (
-    <label htmlFor="name" className="text-sm text-gray-500 font-bold">
-      {children}
-    </label>
-  );
-};
+import RoutineSubmitButton from './RoutineSubmitButton';
 
 interface RoutineFormProps {
   nickname: string;
   mateNickname: string;
 }
 
-const routineForm = {
+const routineFormInit = {
   nickname: '',
   routineName: '',
   routineDetail: '',
   penalty: 0,
-  routineCount: 0,
+  routineCount: 1,
   startDate: '',
   endDate: '',
   mateNickname: '',
@@ -36,34 +27,16 @@ const routineForm = {
 
 const RoutineForm = ({ nickname, mateNickname }: RoutineFormProps) => {
   const closeModal = useModalStore((state) => state.close);
-  const [form, setForm] = useState<RoutineFormType>({
-    ...routineForm,
+  const form: RoutineFormType = {
+    ...routineFormInit,
     nickname,
     mateNickname,
-  });
-  const formRef = useRef<HTMLFormElement>(null);
+  };
   const saveMutation = useCreateRoutineMutation(nickname);
 
-  const enable = Object.entries(form)
-    .filter(([key]) => key !== 'name' && key !== 'endDate')
-    .every(([, value]) => value);
-
-  const handleChange = (e: React.ChangeEvent) => {
-    const target = e.target as HTMLInputElement;
-
-    setForm((prev) => ({
-      ...prev,
-      [target.name]: target.value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!enable) return;
-
+  const handleSubmit = async (data: RoutineFormType) => {
     try {
-      await saveMutation.mutateAsync(form);
+      await saveMutation.mutateAsync(data);
       alert('루틴이 생성되었습니다.');
       closeModal();
     } catch {
@@ -72,83 +45,134 @@ const RoutineForm = ({ nickname, mateNickname }: RoutineFormProps) => {
   };
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit}>
-      <div className="flex flex-col gap-2 mt-5">
-        <RoutineFormLabel>루틴 이름</RoutineFormLabel>
-        <Input
-          name="routineName"
-          value={form.routineName}
-          placeholder="루틴 이름을 입력하세요."
-          onChange={handleChange}
-        />
-      </div>
-      <div className="flex flex-col gap-2 mt-5">
-        <RoutineFormLabel>루틴 설명</RoutineFormLabel>
-        <Input
-          name="routineDetail"
-          value={form.routineDetail}
-          placeholder="루틴을 설명해주세요."
-          onChange={handleChange}
-        />
-      </div>
-      <div className="flex flex-col gap-2 mt-5">
-        <RoutineFormLabel>벌금</RoutineFormLabel>
-        <Input
-          type="number"
-          name="penalty"
-          value={form.penalty}
-          placeholder="벌금을 입력하세요."
-          onChange={handleChange}
-        />
-      </div>
-      <div className="flex flex-col gap-2 mt-5">
-        <RoutineFormLabel>루틴 횟수</RoutineFormLabel>
-        <Input
-          type="number"
-          name="routineCount"
-          value={form.routineCount}
-          max={7}
-          placeholder="루틴 횟수를 입력하세요."
-          onChange={handleChange}
-        />
-      </div>
-      <div className="flex flex-col gap-2 mt-5">
-        <RoutineFormLabel>루틴 시작 날짜</RoutineFormLabel>
-        <Input
-          type="date"
-          name="startDate"
-          value={form.startDate}
-          placeholder="루틴 시작 날짜를 입력하세요."
-          onChange={handleChange}
-        />
-      </div>
-      <div className="flex flex-col gap-2 mt-5">
-        <RoutineFormLabel>루틴 종료 날짜</RoutineFormLabel>
-        <Input
-          type="date"
-          name="endDate"
-          value={form.endDate}
-          placeholder="루틴 종료 날짜를 입력하세요."
-          onChange={handleChange}
-        />
-      </div>
+    <Form data={form} onSubmit={handleSubmit}>
+      <FormItem
+        name="routineName"
+        className="flex flex-col gap-2 mt-5"
+        label="루틴 이름"
+        rule={{ required: true }}
+        render={({ value, name, onChange }) => (
+          <Input
+            name={name}
+            value={value}
+            placeholder="루틴 이름을 입력하세요."
+            onChange={onChange}
+          />
+        )}
+      />
+      <FormItem
+        name="routineDetail"
+        className="flex flex-col gap-2 mt-5"
+        label="루틴 설명"
+        rule={{ required: true }}
+        render={({ value, name, onChange }) => (
+          <Input
+            name={name}
+            value={value}
+            placeholder="루틴을 설명해주세요."
+            onChange={onChange}
+          />
+        )}
+      />
+      <FormItem
+        name="penalty"
+        className="flex flex-col gap-2 mt-5"
+        label="벌금"
+        rule={{ required: true, min: 0 }}
+        render={({ value, name, onChange }) => (
+          <Input
+            type="number"
+            name={name}
+            value={value}
+            min={0}
+            placeholder="벌금을 입력하세요."
+            onChange={onChange}
+          />
+        )}
+      />
+      <FormItem
+        name="routineCount"
+        className="flex flex-col gap-2 mt-5"
+        label="루틴 횟수"
+        rule={{ required: true, min: 1, max: 7 }}
+        render={({ value, name, onChange }) => (
+          <Input
+            type="number"
+            name={name}
+            value={value}
+            max={7}
+            min={1}
+            placeholder="루틴 횟수를 입력하세요."
+            onChange={onChange}
+          />
+        )}
+      />
+      <FormItem
+        name="startDate"
+        className="flex flex-col gap-2 mt-5"
+        label="루틴 시작 날짜"
+        rule={{ required: true }}
+        render={({ value, name, onChange, form, setValue }) => (
+          <Input
+            type="date"
+            name={name}
+            value={value}
+            placeholder="루틴 시작 날짜를 입력하세요."
+            onChange={(e) => {
+              const target = e.target as HTMLInputElement;
+              const routineForm = form as RoutineFormType;
+
+              if (target.name === 'startDate') {
+                const startDate = new Date(target.value);
+                const endDate = new Date(routineForm.endDate);
+
+                if (routineForm.endDate && endDate < startDate) {
+                  setValue('endDate', target.value);
+                }
+              }
+
+              onChange(e);
+            }}
+          />
+        )}
+      />
+      <FormItem
+        name="endDate"
+        className="flex flex-col gap-2 mt-5"
+        label="루틴 종료 날짜"
+        render={({ value, name, onChange, form, setValue }) => (
+          <Input
+            type="date"
+            name={name}
+            value={value}
+            placeholder="루틴 종료 날짜를 입력하세요."
+            onChange={(e) => {
+              const target = e.target as HTMLInputElement;
+              const routineForm = form as RoutineFormType;
+              const startDate = new Date(routineForm.startDate);
+              const endDate = new Date(target.value);
+
+              if (routineForm.startDate && endDate < startDate) {
+                setValue('startDate', target.value);
+              }
+
+              onChange(e);
+            }}
+          />
+        )}
+      />
       <div className="flex justify-end mt-5">
-        <button
+        <Button
           type="button"
-          className="mr-2 text-sm text-gray-500 flex items-center cursor-pointer"
+          variant="plain"
+          className="mr-2"
           onClick={closeModal}
         >
           취소
-        </button>
-        <button
-          type="submit"
-          className="text-sm text-white bg-gray-500 rounded-md px-4 py-2 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
-          disabled={!enable}
-        >
-          추가
-        </button>
+        </Button>
+        <RoutineSubmitButton />
       </div>
-    </form>
+    </Form>
   );
 };
 

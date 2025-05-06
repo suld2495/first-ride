@@ -52,7 +52,7 @@ const RoutineView = ({
           벌금
         </Paragraph>
         <div className="relative w-full">
-          <Paragraph>{penalty}</Paragraph>
+          <Paragraph>{penalty.toLocaleString()}원</Paragraph>
         </div>
       </div>
       <div className="py-4">
