@@ -104,21 +104,4 @@ export const routineHandlers = [
       { status: 201 },
     );
   }),
-
-  http.get(`${BASE_URL}/api/routine/:id/request`, () => {
-    return HttpResponse.json([
-      {
-        requestId: 1,
-        requesterNickname: 'moon',
-        routineName: '퇴근 후 공부 루틴',
-        createdAt: '2025-04-11T20:01:16.368486',
-      },
-      {
-        requestId: 2,
-        requesterNickname: 'moon',
-        routineName: '퇴근 후 공부 루틴',
-        createdAt: '2025-04-11T20:01:16.368486',
-      },
-    ]);
-  }),
 ];

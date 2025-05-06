@@ -16,8 +16,8 @@ const variantStyle: Record<ButtonVariant, string> = {
 
 const sizeStyle: Record<ButtonSize, string> = {
   small: 'h-7 text-small rounded-sm',
-  medium: 'p-2 h-9 text-middle rounded-md',
-  large: 'h-12 text-large rounded-xl',
+  medium: 'min-w-[60px] p-2 h-9 text-middle rounded-md',
+  large: 'min-w-[100px] h-12 text-large rounded-xl',
 };
 
 const Button = ({

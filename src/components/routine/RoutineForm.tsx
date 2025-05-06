@@ -2,6 +2,7 @@ import { RoutineForm as RoutineFormType } from '@/api/routine.api';
 import { useCreateRoutineMutation } from '@/hooks/useRoutine';
 import { useModalStore } from '@/store/modal.store';
 
+import Button from '../common/button/Button';
 import Form from '../common/form/Form';
 import { FormItem } from '../common/form/FormItem';
 import Input from '../common/Input';
@@ -161,13 +162,14 @@ const RoutineForm = ({ nickname, mateNickname }: RoutineFormProps) => {
         )}
       />
       <div className="flex justify-end mt-5">
-        <button
+        <Button
           type="button"
-          className="mr-2 text-sm text-gray-500 flex items-center cursor-pointer"
+          variant="plain"
+          className="mr-2"
           onClick={closeModal}
         >
           취소
-        </button>
+        </Button>
         <RoutineSubmitButton />
       </div>
     </Form>
