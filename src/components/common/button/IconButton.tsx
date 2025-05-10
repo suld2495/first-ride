@@ -1,6 +1,6 @@
 import Button, { ButtonProps } from './Button';
 
-interface IconButtonProps extends ButtonProps {
+export interface IconButtonProps extends ButtonProps {
   icon: React.ReactNode;
   iconPosition?: 'left' | 'right';
   gap?: number;

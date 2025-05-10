@@ -3,13 +3,15 @@ import { IconPhotoScan } from '@tabler/icons-react';
 
 import { Image } from '@/types/image';
 
-import IconButton from '../button/IconButton';
+import IconButton, { IconButtonProps } from '../button/IconButton';
 
 import PreviewImage from './PreviewImage';
 
-interface ImageUploadProps {
+type IconButtonType = Omit<IconButtonProps, 'onChange' | 'value' | 'icon'> &
+  Partial<Pick<IconButtonProps, 'icon'>>;
+
+interface ImageUploadProps extends IconButtonType {
   className?: string;
-  icon?: React.ReactNode;
   name?: string;
   disabled?: boolean;
   value?: Partial<Image> | null;
