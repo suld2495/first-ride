@@ -7,8 +7,8 @@ type SkeltonVariants = 'pulse';
 interface SkeltonProps {
   show: boolean;
   variant?: SkeltonVariants;
-  width?: string;
-  height?: string;
+  width?: string | number;
+  height?: string | number;
   className?: string;
 }
 
@@ -16,7 +16,7 @@ const variantStyles: Record<SkeltonVariants, string> = {
   pulse: 'w-full h-full animate-pulse bg-gray-200',
 };
 
-const Skelton = ({
+const Skeleton = ({
   show,
   variant = 'pulse',
   width = '100%',
@@ -26,12 +26,12 @@ const Skelton = ({
   const [shouldRender, handleAnimationEnd] = useAnimation(show);
 
   const style = useMemo(() => {
-    const widthValue = Number.isNaN(Number(width)) ? width : `${width}px`;
-    const heightValue = Number.isNaN(Number(height)) ? height : `${height}px`;
+    const toPxels = (value: string | number) =>
+      typeof value === 'number' ? `${value}px` : value;
 
     return {
-      width: widthValue,
-      height: heightValue,
+      width: toPxels(width),
+      height: toPxels(height),
     };
   }, [width, height]);
 
@@ -48,4 +48,4 @@ const Skelton = ({
   );
 };
 
-export default Skelton;
+export default Skeleton;

@@ -11,7 +11,7 @@ export const useAnimation = (
     }
   }, [show]);
 
-  const handleAnimationEnd = () => {
+  const handleAnimationEnd: React.AnimationEventHandler = () => {
     if (!show) setRender(false);
   };
 
