@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import { useAnimation } from '@/hooks/useAnimation';
+import { toPxels } from '@/utils/css-utils';
 
 type SkeltonVariants = 'pulse';
 
@@ -26,9 +27,6 @@ const Skeleton = ({
   const [shouldRender, handleAnimationEnd] = useAnimation(show);
 
   const style = useMemo(() => {
-    const toPxels = (value: string | number) =>
-      typeof value === 'number' ? `${value}px` : value;
-
     return {
       width: toPxels(width),
       height: toPxels(height),
@@ -38,11 +36,11 @@ const Skeleton = ({
   return (
     shouldRender && (
       <div
-        className={`${show ? 'fade-in' : 'fade-out'}`}
+        className={`overflow-hidden ${show ? 'fade-in' : 'fade-out'} ${className}`}
         style={style}
         onAnimationEnd={handleAnimationEnd}
       >
-        <div className={`${variantStyles[variant]} ${className}`} />
+        <div className={`${variantStyles[variant]}`} />
       </div>
     )
   );
