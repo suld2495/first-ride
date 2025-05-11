@@ -61,12 +61,12 @@ const RoutineList = ({ routines, date }: RoutineListProps) => {
           루틴을 추가해보세요.
         </div>
       )}
-      {routines.map(({ id, routineName, count = 0, routineCount }) => (
-        <ul className="flex w-full text-center" key={id}>
+      {routines.map(({ routineId, routineName, count = 0, routineCount }) => (
+        <ul className="flex w-full text-center" key={routineId}>
           <li className="text-sm truncate py-2 px-1 w-[100px] text-[var(--primary-color)]">
             <span
               className="cursor-pointer hover:underline hover:text-gray-500"
-              onClick={() => handleShowDetailModal(id)}
+              onClick={() => handleShowDetailModal(routineId)}
             >
               {routineName}
             </span>
@@ -109,7 +109,7 @@ const RoutineList = ({ routines, date }: RoutineListProps) => {
                 className="px-2"
                 icon={<IconCheck height={15} stroke={2} />}
                 size="small"
-                onClick={() => handleShowRequestModal(id)}
+                onClick={() => handleShowRequestModal(routineId)}
               />
             ) : (
               <div></div>

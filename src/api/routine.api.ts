@@ -1,7 +1,7 @@
 import http from '.';
 
 export interface Routine {
-  id: number;
+  routineId: number;
   nickname: string;
   routineName: string;
   startDate: string;
