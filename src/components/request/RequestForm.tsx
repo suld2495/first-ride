@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 import { useCreateRequestMutation } from '@/hooks/useRequest';
 import { useModalStore } from '@/store/modal.store';

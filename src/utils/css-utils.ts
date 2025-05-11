@@ -1,2 +1,2 @@
-export const toPxels = (value: string | number) =>
-  Number.isNaN(Number(value)) ? value : `${value}px`;
+export const toPxels = (value: string | number): string =>
+  Number.isNaN(Number(value)) ? (value as string) : `${value}px`;
