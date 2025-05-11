@@ -27,6 +27,21 @@ export const useCreateRoutineMutation = (nickname: string) => {
   });
 };
 
+export const useUpdateRoutineMutation = (nickname: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: routineApi.RoutineUpdateForm) =>
+      routineApi.updateRoutine(data),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [...routineKey.list(nickname)],
+      });
+    },
+  });
+};
+
 export const useRoutineDetailQuery = (routineId: number) => {
   return useQuery({
     queryKey: routineKey.detail(routineId),

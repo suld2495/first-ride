@@ -1,7 +1,7 @@
 import http from '.';
 
 export interface Routine {
-  id: number;
+  routineId: number;
   nickname: string;
   routineName: string;
   startDate: string;
@@ -24,6 +24,10 @@ export interface RoutineForm {
   mateNickname: string;
 }
 
+export interface RoutineUpdateForm extends RoutineForm {
+  routineId: number;
+}
+
 export const fetchRoutines = async (
   nickname: string,
   date: string,
@@ -41,6 +45,10 @@ export const fetchRoutineDetail = async (id: number): Promise<Routine> => {
 
 export const createRoutine = async (form: RoutineForm): Promise<void> => {
   return http.post('/routine', form);
+};
+
+export const updateRoutine = async (form: RoutineUpdateForm): Promise<void> => {
+  return http.put('/routine', form);
 };
 
 export const deleteRoutine = async (id: number): Promise<void> => {

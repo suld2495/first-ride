@@ -1,5 +1,4 @@
-import { RoutineForm as RoutineFormType } from '@/api/routine.api';
-import { useCreateRoutineMutation } from '@/hooks/useRoutine';
+import { Routine, RoutineForm as RoutineFormType } from '@/api/routine.api';
 import { useModalStore } from '@/store/modal.store';
 
 import Button from '../common/button/Button';
@@ -12,6 +11,8 @@ import RoutineSubmitButton from './RoutineSubmitButton';
 interface RoutineFormProps {
   nickname: string;
   mateNickname: string;
+  form?: Routine;
+  onSubmit: (data: RoutineFormType) => void;
 }
 
 const routineFormInit = {
@@ -25,27 +26,22 @@ const routineFormInit = {
   mateNickname: '',
 };
 
-const RoutineForm = ({ nickname, mateNickname }: RoutineFormProps) => {
+const RoutineForm = ({
+  nickname,
+  mateNickname,
+  form: formData,
+  onSubmit,
+}: RoutineFormProps) => {
   const closeModal = useModalStore((state) => state.close);
   const form: RoutineFormType = {
     ...routineFormInit,
     nickname,
     mateNickname,
-  };
-  const saveMutation = useCreateRoutineMutation(nickname);
-
-  const handleSubmit = async (data: RoutineFormType) => {
-    try {
-      await saveMutation.mutateAsync(data);
-      alert('루틴이 생성되었습니다.');
-      closeModal();
-    } catch {
-      alert('루틴 생성에 실패했습니다.');
-    }
+    ...formData,
   };
 
   return (
-    <Form data={form} onSubmit={handleSubmit}>
+    <Form data={form} onSubmit={onSubmit}>
       <FormItem
         name="routineName"
         className="flex flex-col gap-2 mt-5"

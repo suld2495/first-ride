@@ -19,14 +19,14 @@ const FormLabel = ({ children }: FormLabelProps) => {
 };
 
 interface RequestFormProps {
-  id: number;
+  routineId: number;
   routineName: string;
   routineDetail: string;
   nickname: string;
 }
 
 const RequestForm = ({
-  id,
+  routineId,
   routineName,
   routineDetail,
   nickname,
@@ -49,7 +49,7 @@ const RequestForm = ({
     const formData = new FormData();
 
     formData.append('image', image);
-    formData.append('routineId', id.toString());
+    formData.append('routineId', routineId.toString());
     formData.append('nickname', nickname);
 
     try {
@@ -63,7 +63,7 @@ const RequestForm = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <input className="hidden" name="routineId" defaultValue={id} />
+      <input className="hidden" name="routineId" defaultValue={routineId} />
       <input className="hidden" name="nickname" defaultValue={nickname} />
       <div className="flex flex-col gap-2 mt-5">
         <FormLabel>루틴 이름</FormLabel>
