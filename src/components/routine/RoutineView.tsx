@@ -1,13 +1,14 @@
 import { Routine } from '@/api/routine.api';
 import { useDeleteRoutineMutation } from '@/hooks/useRoutine';
-import { useModalStore } from '@/store/modal.store';
+import { ModalName, useModalStore } from '@/store/modal.store';
+import { useRoutineStore } from '@/store/routine.store';
 import { getDisplayFormatDate } from '@/utils/date-utils';
 
 import Button from '../common/button/Button';
 import Paragraph from '../common/paragraph/Paragraph';
 
 const RoutineView = ({
-  id,
+  routineId,
   nickname,
   routineName,
   routineDetail,
@@ -16,19 +17,27 @@ const RoutineView = ({
   startDate,
   endDate,
 }: Routine) => {
+  const openModal = useModalStore((state) => state.show);
   const closeModal = useModalStore((state) => state.close);
+  const setRoutineId = useRoutineStore((state) => state.setRoutineId);
+
   const deleteRoutine = useDeleteRoutineMutation(nickname);
 
   const handleDelete = async () => {
     if (confirm('정말 삭제하시겠습니까?')) {
       try {
-        await deleteRoutine.mutateAsync(id);
+        await deleteRoutine.mutateAsync(routineId);
         alert('삭제되었습니다.');
         closeModal();
       } catch {
         alert('삭제에 실패했습니다.');
       }
     }
+  };
+
+  const handleEdit = () => {
+    openModal(ModalName.ROUTINE_EDIT);
+    setRoutineId(routineId);
   };
 
   return (
@@ -72,6 +81,12 @@ const RoutineView = ({
           onClick={closeModal}
         >
           확인
+        </Button>
+        <Button
+          className="mr-2 bg-sky-400 hover:bg-sky-500 px-4 disabled:opacity-30 disabled:cursor-not-allowed"
+          onClick={handleEdit}
+        >
+          수정
         </Button>
         <Button
           className="mr-2 px-4 bg-red-400 hover:bg-red-500 disabled:opacity-30 disabled:cursor-not-allowed"
