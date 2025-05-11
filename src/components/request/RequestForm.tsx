@@ -1,9 +1,10 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 import { useCreateRequestMutation } from '@/hooks/useRequest';
 import { useModalStore } from '@/store/modal.store';
 
 import Button from '../common/button/Button';
+import ImageUpload from '../common/input/ImageUpload';
 
 interface FormLabelProps {
   children: React.ReactNode;
@@ -31,25 +32,13 @@ const RequestForm = ({
   nickname,
 }: RequestFormProps) => {
   const closeModal = useModalStore((state) => state.close);
-  const imageRef = useRef<HTMLInputElement>(null);
-  const [preview, setPreview] = useState<string>('');
   const [image, setImage] = useState<File | null>(null);
   const enable = image !== null;
 
   const saveRequest = useCreateRequestMutation();
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-
-    if (file) {
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        setPreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-      setImage(file);
-    }
+  const handleFileUpload = (files: File[]) => {
+    setImage(files[0]);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -87,31 +76,8 @@ const RequestForm = ({
       <div className="flex flex-col gap-2 mt-5">
         <FormLabel>인증 사진</FormLabel>
         <div>
-          <button
-            className="bg-gray-400 py-2 px-3 rounded-xl text-white cursor-pointer"
-            onClick={() => imageRef.current?.click()}
-          >
-            업로드
-          </button>
-          <input
-            ref={imageRef}
-            type="file"
-            name="image"
-            accept="image/*"
-            className="hidden"
-            required
-            onChange={handleFileUpload}
-          />
+          <ImageUpload name="image" onChange={handleFileUpload} isPreview />
         </div>
-        {preview && (
-          <div className="relative mt-2 h-[300px]">
-            <img
-              className="w-full h-full rounded-lg"
-              src={preview}
-              alt="Preview"
-            />
-          </div>
-        )}
       </div>
       <div className="flex justify-end mt-5">
         <Button className="mr-2" variant="plain" onClick={closeModal}>
