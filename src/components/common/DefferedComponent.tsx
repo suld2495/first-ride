@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useAnimation } from '@/hooks/useAnimation';
 
@@ -13,17 +13,26 @@ const DefferedComponent = ({
   show,
   animation = false,
 }: DefferedComponentProps) => {
+  const timer = useRef<number | null>(null);
   const [shouldRender, handleAnimationEnd, setRender] = useAnimation(show);
   const [fadeIn, setFadeIn] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      setFadeIn(true);
-    }, 200);
+    if (timer.current) {
+      timer.current = setTimeout(() => {
+        setFadeIn(true);
+      }, 200);
+    }
 
     if (!animation && !show) {
       setRender(false);
     }
+
+    return () => {
+      if (timer.current) {
+        clearTimeout(timer.current);
+      }
+    };
   }, [animation, setRender, show]);
 
   let showClass = 'block';
