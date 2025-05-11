@@ -3,17 +3,17 @@ import { useMemo } from 'react';
 import { useAnimation } from '@/hooks/useAnimation';
 import { toPxels } from '@/utils/css-utils';
 
-type SkeltonVariants = 'pulse';
+type SkeletonVariants = 'pulse';
 
 interface SkeltonProps {
   show: boolean;
-  variant?: SkeltonVariants;
+  variant?: SkeletonVariants;
   width?: string | number;
   height?: string | number;
   className?: string;
 }
 
-const variantStyles: Record<SkeltonVariants, string> = {
+const variantStyles: Record<SkeletonVariants, string> = {
   pulse: 'w-full h-full animate-pulse bg-gray-200',
 };
 
