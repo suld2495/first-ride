@@ -82,12 +82,14 @@ const RequestView = ({
               취소
             </Button>
             <Button
+              type="button"
               className="mr-2 px-4 disabled:opacity-30 disabled:cursor-not-allowed"
               onClick={() => handleSubmit(CheckStatus.PASS)}
             >
               승인
             </Button>
             <Button
+              type="button"
               className="mr-2 px-4 bg-red-400 hover:bg-red-500 disabled:opacity-30 disabled:cursor-not-allowed"
               onClick={() => handleSubmit(CheckStatus.DENIED)}
             >
