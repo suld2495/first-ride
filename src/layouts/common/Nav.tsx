@@ -6,6 +6,12 @@ const Nav = () => {
     <nav>
       <ul>
         <li>
+          <Link to="/" className="flex flex-col items-center gap-1">
+            <IconHome color="white" stroke={2} />
+            <span className="text-[12px] text-white">홈</span>
+          </Link>
+        </li>
+        <li>
           <Link to="/routine" className="flex flex-col items-center gap-1">
             <IconHome color="white" stroke={2} />
             <span className="text-[12px] text-white">루틴</span>
