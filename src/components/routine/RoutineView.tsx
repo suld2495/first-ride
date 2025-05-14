@@ -13,6 +13,7 @@ const RoutineView = ({
   routineName,
   routineDetail,
   penalty,
+  weeklyCount,
   routineCount,
   startDate,
   endDate,
@@ -53,7 +54,9 @@ const RoutineView = ({
           루틴 횟수
         </Paragraph>
         <div className="relative w-full">
-          <Paragraph>{routineCount}</Paragraph>
+          <Paragraph>
+            {weeklyCount}/{routineCount}
+          </Paragraph>
         </div>
       </div>
       <div className="py-4">

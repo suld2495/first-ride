@@ -8,7 +8,7 @@ export interface Routine {
   endDate?: string;
   routineDetail: string;
   penalty: number;
-  count: number;
+  weeklyCount: number;
   routineCount: number;
   mateNickname: string;
 }

@@ -61,62 +61,64 @@ const RoutineList = ({ routines, date }: RoutineListProps) => {
           루틴을 추가해보세요.
         </div>
       )}
-      {routines.map(({ routineId, routineName, count = 0, routineCount }) => (
-        <ul className="flex w-full text-center" key={routineId}>
-          <li className="text-sm truncate py-2 px-1 w-[100px] text-[var(--primary-color)]">
-            <span
-              className="cursor-pointer hover:underline hover:text-gray-500"
-              onClick={() => handleShowDetailModal(routineId)}
-            >
-              {routineName}
-            </span>
-          </li>
-          {Array(~~count)
-            .fill(0)
-            .map((_, index) => (
-              <RoutineHeader
-                className="text-[var(--primary-color)]"
-                key={index}
+      {routines.map(
+        ({ routineId, routineName, weeklyCount = 0, routineCount }) => (
+          <ul className="flex w-full text-center" key={routineId}>
+            <li className="text-sm truncate py-2 px-1 w-[100px] text-[var(--primary-color)]">
+              <span
+                className="cursor-pointer hover:underline hover:text-gray-500"
+                onClick={() => handleShowDetailModal(routineId)}
               >
-                <IconSquareCheckFilled stroke={2} />
-              </RoutineHeader>
-            ))}
+                {routineName}
+              </span>
+            </li>
+            {Array(~~weeklyCount)
+              .fill(0)
+              .map((_, index) => (
+                <RoutineHeader
+                  className="text-[var(--primary-color)]"
+                  key={index}
+                >
+                  <IconSquareCheckFilled stroke={2} />
+                </RoutineHeader>
+              ))}
 
-          {Array(Math.max(routineCount - ~~count, 0))
-            .fill(0)
-            .map((_, index) => (
-              <RoutineHeader key={index} className="text-gray-400">
-                <IconSquare stroke={2} />
-              </RoutineHeader>
-            ))}
+            {Array(Math.max(routineCount - ~~weeklyCount, 0))
+              .fill(0)
+              .map((_, index) => (
+                <RoutineHeader key={index} className="text-gray-400">
+                  <IconSquare stroke={2} />
+                </RoutineHeader>
+              ))}
 
-          {Array(7 - Math.max(routineCount, ~~count))
-            .fill(0)
-            .map((_, index) => (
-              <RoutineHeader key={index} className="text-gray-400">
-                -
-              </RoutineHeader>
-            ))}
+            {Array(7 - Math.max(routineCount, ~~weeklyCount))
+              .fill(0)
+              .map((_, index) => (
+                <RoutineHeader key={index} className="text-gray-400">
+                  -
+                </RoutineHeader>
+              ))}
 
-          <RoutineHeader>
-            <div className="text-[var(--gray-main-color)] font-bold">
-              {Math.floor((~~count / routineCount) * 100)}%
-            </div>
-          </RoutineHeader>
-          <RoutineHeader>
-            {date === getWeekMonday(new Date()) ? (
-              <IconButton
-                className="px-2"
-                icon={<IconCheck height={15} stroke={2} />}
-                size="small"
-                onClick={() => handleShowRequestModal(routineId)}
-              />
-            ) : (
-              <div></div>
-            )}
-          </RoutineHeader>
-        </ul>
-      ))}
+            <RoutineHeader>
+              <div className="text-[var(--gray-main-color)] font-bold">
+                {Math.floor((~~weeklyCount / routineCount) * 100)}%
+              </div>
+            </RoutineHeader>
+            <RoutineHeader>
+              {date === getWeekMonday(new Date()) ? (
+                <IconButton
+                  className="px-2"
+                  icon={<IconCheck height={15} stroke={2} />}
+                  size="small"
+                  onClick={() => handleShowRequestModal(routineId)}
+                />
+              ) : (
+                <div></div>
+              )}
+            </RoutineHeader>
+          </ul>
+        ),
+      )}
     </div>
   );
 };
