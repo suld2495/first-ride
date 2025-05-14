@@ -47,8 +47,11 @@ export const createRoutine = async (form: RoutineForm): Promise<void> => {
   return http.post('/routine', form);
 };
 
-export const updateRoutine = async (form: RoutineUpdateForm): Promise<void> => {
-  return http.put('/routine', form);
+export const updateRoutine = async ({
+  routineId,
+  ...form
+}: RoutineUpdateForm): Promise<void> => {
+  return http.put(`/routine/${routineId}`, form);
 };
 
 export const deleteRoutine = async (id: number): Promise<void> => {
