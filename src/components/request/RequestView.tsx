@@ -6,6 +6,7 @@ import { useAuthStore } from '@/store/auth.store';
 import { useModalStore } from '@/store/modal.store';
 
 import Button from '../common/button/Button';
+import Label from '../common/input/Label';
 import Paragraph from '../common/paragraph/Paragraph';
 
 const RequestView = ({
@@ -60,12 +61,9 @@ const RequestView = ({
           <input className="hidden" name="id" defaultValue={id} />
 
           <div>
-            <label
-              htmlFor="comment"
-              className="font-semibold text-[15px] mb-2 block"
-            >
+            <Label htmlFor="comment" className="mb-2">
               응원의 한마디!
-            </label>
+            </Label>
             <textarea
               id="comment"
               name="comment"
