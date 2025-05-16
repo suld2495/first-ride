@@ -1,3 +1,5 @@
+import { twMerge } from 'tailwind-merge';
+
 type ButtonVariant = 'primary' | 'plain';
 type ButtonSize = 'small' | 'medium' | 'large';
 
@@ -15,9 +17,9 @@ const variantStyle: Record<ButtonVariant, string> = {
 };
 
 const sizeStyle: Record<ButtonSize, string> = {
-  small: 'h-7 text-small rounded-sm',
-  medium: 'min-w-[60px] p-2 h-9 text-middle rounded-md',
-  large: 'min-w-[100px] h-12 text-large rounded-xl',
+  small: 'h-7 text-[12px] rounded-sm',
+  medium: 'min-w-[60px] p-2 h-9 text-[14px] rounded-md',
+  large: 'min-w-[100px] h-12 text-[18px] rounded-xl',
 };
 
 const Button = ({
@@ -29,7 +31,9 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <button
-      className={`cursor-pointer ${variantStyle[variant]} ${sizeStyle[size]} ${className}`}
+      className={twMerge(
+        `cursor-pointer ${variantStyle[variant]} ${sizeStyle[size]} ${className}`,
+      )}
       {...props}
     >
       {children}
