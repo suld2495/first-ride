@@ -11,6 +11,7 @@ import { useRoutineStore } from '@/store/routine.store';
 import { getWeekMonday } from '@/utils/date-utils';
 
 import IconButton from '../common/button/IconButton';
+import Paragraph from '../common/paragraph/Paragraph';
 
 interface RoutineHeaderProps {
   className?: string;
@@ -20,7 +21,7 @@ interface RoutineHeaderProps {
 const RoutineHeader = ({ className, children }: RoutineHeaderProps) => {
   return (
     <li
-      className={`${className || ''} flex-1 text-sm py-2 flex justify-center`}
+      className={`${className || ''} flex-1 text-sm py-2 flex justify-center dark:text-white`}
     >
       {children}
     </li>
@@ -49,7 +50,9 @@ const RoutineList = ({ routines, date }: RoutineListProps) => {
   return (
     <div>
       <ul className="flex w-full text-center text-gray-700 font-bold border-b border-gray-300">
-        <li className="text-sm truncate py-2 px-1 w-[100px]">이름</li>
+        <li className="text-sm truncate py-2 px-1 w-[100px]">
+          <Paragraph>이름</Paragraph>
+        </li>
         {Array.from({ length: 7 }, (_, index) => index + 1).map((index) => (
           <RoutineHeader key={index}>{`${index}회`}</RoutineHeader>
         ))}
@@ -57,20 +60,18 @@ const RoutineList = ({ routines, date }: RoutineListProps) => {
         <RoutineHeader>인증</RoutineHeader>
       </ul>
       {!routines.length && (
-        <div className="py-4 text-center text-[15px] text-gray-700">
-          루틴을 추가해보세요.
-        </div>
+        <Paragraph className="py-4 text-center">루틴을 추가해보세요.</Paragraph>
       )}
       {routines.map(
         ({ routineId, routineName, weeklyCount = 0, routineCount }) => (
           <ul className="flex w-full text-center" key={routineId}>
             <li className="text-sm truncate py-2 px-1 w-[100px] text-[var(--primary-color)]">
-              <span
+              <Paragraph
                 className="cursor-pointer hover:underline hover:text-gray-500"
                 onClick={() => handleShowDetailModal(routineId)}
               >
                 {routineName}
-              </span>
+              </Paragraph>
             </li>
             {Array(~~weeklyCount)
               .fill(0)
@@ -100,20 +101,18 @@ const RoutineList = ({ routines, date }: RoutineListProps) => {
               ))}
 
             <RoutineHeader>
-              <div className="text-[var(--gray-main-color)] font-bold">
+              <Paragraph variant='span' className="text-[var(--gray-main-color)] font-bold">
                 {Math.floor((~~weeklyCount / routineCount) * 100)}%
-              </div>
+              </Paragraph>
             </RoutineHeader>
             <RoutineHeader>
-              {date === getWeekMonday(new Date()) ? (
+              {date === getWeekMonday(new Date()) && (
                 <IconButton
                   className="px-2"
                   icon={<IconCheck height={15} stroke={2} />}
                   size="small"
                   onClick={() => handleShowRequestModal(routineId)}
                 />
-              ) : (
-                <div></div>
               )}
             </RoutineHeader>
           </ul>

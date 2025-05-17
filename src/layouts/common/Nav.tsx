@@ -4,7 +4,7 @@ import { IconHome } from '@tabler/icons-react';
 const Nav = () => {
   return (
     <nav>
-      <ul>
+      <ul className="flex justify-center gap-10">
         <li>
           <Link to="/" className="flex flex-col items-center gap-1">
             <IconHome color="white" stroke={2} />

@@ -1,5 +1,7 @@
 import { useContext, useEffect } from 'react';
 
+import Label from '../input/Label';
+
 import {
   FormContext,
   FormContextProps,
@@ -55,9 +57,9 @@ const FormItem = ({
   return (
     <div className={`flex ${className} ${flex ? 'flex-1' : ''}`}>
       {label && (
-        <label htmlFor={name} className="text-sm text-gray-500 font-bold">
+        <Label htmlFor={name} className="text-sm font-bold">
           {label}
-        </label>
+        </Label>
       )}
 
       {render({

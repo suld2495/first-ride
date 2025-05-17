@@ -6,6 +6,7 @@ import { useAuthStore } from '@/store/auth.store';
 import { useModalStore } from '@/store/modal.store';
 
 import Button from '../common/button/Button';
+import Label from '../common/input/Label';
 import Paragraph from '../common/paragraph/Paragraph';
 
 const RequestView = ({
@@ -60,19 +61,16 @@ const RequestView = ({
           <input className="hidden" name="id" defaultValue={id} />
 
           <div>
-            <label
-              htmlFor="comment"
-              className="font-semibold text-[15px] mb-2 block"
-            >
+            <Label htmlFor="comment" className="mb-2">
               응원의 한마디!
-            </label>
+            </Label>
             <textarea
               id="comment"
               name="comment"
               rows={4}
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              className="w-full outline-none border-[1px] border-gray-300 rounded-md p-2 focus:border-gray-500 focus:ring-0 transition-colors duration-300"
+              className="w-full outline-none border-[1px] border-gray-300 rounded-md p-2 focus:border-gray-500 dark:focus:border-white focus:ring-0 transition-colors duration-300"
               placeholder="코멘트를 입력하세요."
             />
           </div>
@@ -90,7 +88,7 @@ const RequestView = ({
             </Button>
             <Button
               type="button"
-              className="mr-2 px-4 bg-red-400 hover:bg-red-500 disabled:opacity-30 disabled:cursor-not-allowed"
+              className="mr-2 px-4 bg-red-400 dark:bg-red-400 hover:bg-red-500 dark:hover:bg-red-500 disabled:opacity-30 disabled:cursor-not-allowed"
               onClick={() => handleSubmit(CheckStatus.DENIED)}
             >
               거절

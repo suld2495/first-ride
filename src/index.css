@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --max-width: 640px;
 
@@ -8,7 +10,16 @@
   --color-gray-main: #5c5c5c;
   --color-gray-main-hover: #3c3b3b;
 
+  --color-dark-primary-color: #435d88;
+  --color-dark-primary-color-hover: #597bb8;
+  --color-dark-primary-color-bold: #2e3f5d;
+  --color-dark-primary-color-bold-hover: #5676b1;
+  --color-dark-gray-main: #ebe6e7;
+  --color-gray-main-hover: #3c3b3b;
+
   --color-primary-text-color: #111;
+  --color-dark-primary-text-color: white;
+  --color-dark-primary-text-color-hover: #c0bdbd;
 
   --header-height: 60px;
 
@@ -25,6 +36,14 @@
 
 .fade-out {
   animation: fade-out 0.5s ease-in-out forwards;
+}
+
+body {
+  transition: all 0.3s ease-in-out;
+}
+
+.dark body {
+  background-color: var(--color-primary-color);
 }
 
 @keyframes fade-in {

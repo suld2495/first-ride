@@ -5,6 +5,8 @@ import { useModalStore } from '@/store/modal.store';
 
 import Button from '../common/button/Button';
 import ImageUpload from '../common/input/ImageUpload';
+import Paragraph from '../common/paragraph/Paragraph';
+import Label from '../common/input/Label';
 
 interface FormLabelProps {
   children: React.ReactNode;
@@ -12,9 +14,9 @@ interface FormLabelProps {
 
 const FormLabel = ({ children }: FormLabelProps) => {
   return (
-    <label htmlFor="name" className="text-sm text-gray-500 font-bold">
+    <Label htmlFor="name" className="text-[14px] dark:text-gray-300 font-bold">
       {children}
-    </label>
+    </Label>
   );
 };
 
@@ -67,11 +69,11 @@ const RequestForm = ({
       <input className="hidden" name="nickname" defaultValue={nickname} />
       <div className="flex flex-col gap-2 mt-5">
         <FormLabel>루틴 이름</FormLabel>
-        <p>{routineName}</p>
+        <Paragraph>{routineName}</Paragraph>
       </div>
       <div className="flex flex-col gap-2 mt-5">
         <FormLabel>루틴 설명</FormLabel>
-        <p>{routineDetail}</p>
+        <Paragraph>{routineDetail}</Paragraph>
       </div>
       <div className="flex flex-col gap-2 mt-5">
         <FormLabel>인증 사진</FormLabel>
