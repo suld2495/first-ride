@@ -13,39 +13,39 @@ export const routineHandlers = [
     if (date === getWeekMonday(new Date())) {
       return HttpResponse.json([
         {
-          id: 1,
+          routineId: 1,
           nickname: 'yunji',
           routineName: '퇴근 후 공부 루틴',
           endDate: '2025-04-30',
           routineDetail: '일주일 3회 이상 퇴근 후 공부하고 인증사진 보내기',
           penalty: 5000,
           routineCount: 3,
-          count: 1,
+          weeklyCount: 1,
           mateNickname: 'moon',
         },
         {
-          id: 2,
+          routineId: 2,
           nickname: 'yunji',
           routineName: '퇴근 후 공부 루틴',
           endDate: '2025-04-30',
           routineDetail: '일주일 3회 이상 퇴근 후 공부하고 인증사진 보내기',
           penalty: 5000,
           routineCount: 3,
-          count: 4,
+          weeklyCount: 4,
           mateNickname: 'moon',
         },
       ]);
     } else {
       return HttpResponse.json([
         {
-          id: 3,
+          routineId: 3,
           nickname: 'yunji',
           routineName: '퇴근 후 공부 루틴',
           endDate: '2025-04-30',
           routineDetail: '일주일 3회 이상 퇴근 후 공부하고 인증사진 보내기',
           penalty: 5000,
           routineCount: 3,
-          count: 1,
+          weeklyCount: 1,
           mateNickname: 'moon',
         },
       ]);
@@ -63,7 +63,7 @@ export const routineHandlers = [
       );
     }
     return HttpResponse.json({
-      id: 1,
+      routineId: 1,
       nickname: 'yunji',
       routineName: '퇴근 후 공부 루틴',
       startDate: '2025-04-15',

@@ -18,7 +18,7 @@ const RoutineDate = ({ date }: RoutineDateProps) => {
   const endDate = new Date(getWeekSunday(startDate));
 
   return (
-    <div className="flex justify-between items-center mb-3">
+    <div className="flex justify-between items-center mb-3 text-gray-main dark:text-white">
       <div className="text-sm">
         <span>{getDisplayFormatDate(startDate)}</span>
         <span className="mx-2">~</span>

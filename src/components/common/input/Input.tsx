@@ -11,8 +11,8 @@ interface InputProps
 
 const variantStyle: Record<InputVariant, string> = {
   primary:
-    'border-[1px] border-gray-300 rounded-md focus:border-gray-500 focus:ring-0 transition-colors duration-300',
-  plain: 'text-gray-main hover:text-gray-main-hover',
+    'border-[1px] border-gray-300 dark:border-gray-400 focus:border-gray-500 dark:focus:border-gray-200 focus:ring-0 rounded-md transition-colors duration-300',
+  plain: '',
 };
 
 const sizeStyle: Record<InputSize, string> = {
@@ -25,14 +25,16 @@ const Input = ({
   className,
   variant = 'primary',
   size = 'medium',
+  type,
   ...rest
 }: InputProps) => {
   return (
     <input
       className={twMerge(
-        `outline-0 ${variantStyle[variant]} ${sizeStyle[size]}`,
+        `outline-0 placeholder-gray-500 dark:placeholder-gray-400 text-gray-main dark:text-gray-200 ${type === 'date' && 'scheme-light dark:scheme-dark'}  ${variantStyle[variant]} ${sizeStyle[size]}`,
         className,
       )}
+      type={type}
       {...rest}
     />
   );

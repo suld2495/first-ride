@@ -1,6 +1,7 @@
 import React from 'react';
+import { twMerge } from 'tailwind-merge';
 
-type ParagraphVariant = 'h1' | 'h2' | 'h3' | 'h4' | 'p';
+type ParagraphVariant = 'h1' | 'h2' | 'h3' | 'h4' | 'p' | 'span';
 
 interface ParagraphProps extends React.HTMLAttributes<HTMLElement> {
   variant?: ParagraphVariant;
@@ -12,6 +13,7 @@ const variantStyle: Record<ParagraphVariant, string> = {
   h3: 'text-xl font-semibold',
   h4: 'text-lg font-semibold',
   p: 'text-sm font-normal',
+  span: 'text-sm font-normal',
 };
 
 const Paragraph = ({
@@ -25,7 +27,9 @@ const Paragraph = ({
   return React.createElement(
     Tag,
     {
-      className: `text-primary-text-color ${variantStyle[variant]} ${className}`,
+      className: twMerge(
+        `text-primary-text-color dark:text-dark-primary-text-color ${variantStyle[variant]} ${className}`,
+      ),
       ...props,
     },
     children,

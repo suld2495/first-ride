@@ -20,8 +20,10 @@ interface RoutineHeaderProps {
 
 const RoutineHeader = ({ className, children }: RoutineHeaderProps) => {
   return (
-    <li className={`${className || ''} flex-1 py-2 flex justify-center`}>
-      <Paragraph variant="p">{children}</Paragraph>
+    <li
+      className={`${className || ''} flex-1 text-sm py-2 flex justify-center dark:text-white`}
+    >
+      {children}
     </li>
   );
 };
@@ -48,7 +50,9 @@ const RoutineList = ({ routines, date }: RoutineListProps) => {
   return (
     <div>
       <ul className="flex w-full text-center text-gray-700 font-bold border-b border-gray-300">
-        <li className="text-sm truncate py-2 px-1 w-[100px]">이름</li>
+        <li className="text-sm truncate py-2 px-1 w-[100px]">
+          <Paragraph>이름</Paragraph>
+        </li>
         {Array.from({ length: 7 }, (_, index) => index + 1).map((index) => (
           <RoutineHeader key={index}>{`${index}회`}</RoutineHeader>
         ))}
@@ -97,7 +101,7 @@ const RoutineList = ({ routines, date }: RoutineListProps) => {
               ))}
 
             <RoutineHeader>
-              <Paragraph className="text-[var(--gray-main-color)] font-bold">
+              <Paragraph variant='span' className="text-[var(--gray-main-color)] font-bold">
                 {Math.floor((~~weeklyCount / routineCount) * 100)}%
               </Paragraph>
             </RoutineHeader>

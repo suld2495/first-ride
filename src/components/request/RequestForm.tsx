@@ -6,6 +6,7 @@ import { useModalStore } from '@/store/modal.store';
 import Button from '../common/button/Button';
 import ImageUpload from '../common/input/ImageUpload';
 import Paragraph from '../common/paragraph/Paragraph';
+import Label from '../common/input/Label';
 
 interface FormLabelProps {
   children: React.ReactNode;
@@ -13,9 +14,9 @@ interface FormLabelProps {
 
 const FormLabel = ({ children }: FormLabelProps) => {
   return (
-    <label htmlFor="name" className="text-sm text-gray-500 font-bold">
+    <Label htmlFor="name" className="text-[14px] dark:text-gray-300 font-bold">
       {children}
-    </label>
+    </Label>
   );
 };
 

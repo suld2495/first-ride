@@ -6,7 +6,7 @@ import Footer from './Footer';
 
 const Layout = () => {
   return (
-    <div className="h-dvh max-w-[var(--max-width)] mx-auto shadow-sm">
+    <div className="h-dvh max-w-[var(--max-width)] mx-auto shadow-sm dark:shadow-white">
       <Outlet />
       <Footer />
       <ModalProvider />

@@ -12,8 +12,9 @@ export interface ButtonProps
 
 const variantStyle: Record<ButtonVariant, string> = {
   primary:
-    'text-white bg-primary-color hover:bg-primary-color-hover transition-colors duration-200',
-  plain: 'text-gray-main hover:text-gray-main-hover',
+    'text-white bg-primary-color dark:bg-dark-primary-color-bold hover:bg-primary-color-hover dark:hover:bg-dark-primary-color-bold-hover',
+  plain:
+    'text-gray-main dark:text-dark-primary-text-color hover:text-gray-main-hover dark:hover:text-dark-primary-text-color-hover',
 };
 
 const sizeStyle: Record<ButtonSize, string> = {
@@ -32,7 +33,7 @@ const Button = ({
   return (
     <button
       className={twMerge(
-        `cursor-pointer ${variantStyle[variant]} ${sizeStyle[size]} ${className}`,
+        `cursor-pointer transition-colors duration-200 ${variantStyle[variant]} ${sizeStyle[size]} ${className}`,
       )}
       {...props}
     >
