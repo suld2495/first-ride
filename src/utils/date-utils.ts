@@ -51,3 +51,13 @@ export const afterWeek = (date: Date) => {
   newDate.setDate(newDate.getDate() + 7);
   return getFormatDate(newDate);
 };
+
+export const getDaysOfTheWeek = () => [
+  '월',
+  '화',
+  '수',
+  '목',
+  '금',
+  '토',
+  '일',
+];

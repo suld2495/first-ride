@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import * as routineApi from '@/api/routine.api';
 import { routineKey } from '@/types/query-keys/routine';
+import { getWeekMonday } from '@/utils/date-utils';
 
 export const useRoutinesQuery = (nickname: string, date: string) => {
   return useQuery({
@@ -62,4 +63,28 @@ export const useDeleteRoutineMutation = (nickname: string) => {
       });
     },
   });
+};
+
+const createWeeklyData = (startDate: string): string[] => {
+  const date = new Date(startDate);
+
+  return Array.from({ length: 7 }, (_, i) => {
+    const newDate = new Date(date);
+
+    newDate.setDate(newDate.getDate() + i + 1);
+
+    const year = newDate.getFullYear() - 2000;
+    const month = (newDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = newDate.getDate();
+
+    return `${year}${month}${day}`;
+  });
+};
+
+export const useWeeklyData = (routines: routineApi.Routine[]): boolean[][] => {
+  return routines.map(({ successDate }) =>
+    createWeeklyData(getWeekMonday(new Date())).map((date) =>
+      successDate.includes(date),
+    ),
+  );
 };
