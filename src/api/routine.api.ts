@@ -11,6 +11,7 @@ export interface Routine {
   weeklyCount: number;
   routineCount: number;
   mateNickname: string;
+  successDate: string[];
 }
 
 export interface RoutineForm {
